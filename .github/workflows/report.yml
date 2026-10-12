@@ -2,10 +2,12 @@ name: Momentum report
 
 on:
   schedule:
-    # 1st and 15th at 13:00 UTC (8:00 AM CDT / 7:00 AM CST), before the market opens,
-    # so the latest daily bar is always the previous completed close.
-    - cron: "0 13 1,15 * *"
-  workflow_dispatch:   # lets you run it by hand from the Actions tab
+    # Fridays at 06:17 UTC = 1:17 AM CDT / 12:17 AM CST, i.e. just after midnight
+    # on payday. Markets are closed, so the newest daily bar is Thursday's close.
+    # The odd minute avoids GitHub's busy top-of-the-hour delays.
+    # Runs weekly; the gate step below keeps only every other Friday (payday weeks).
+    - cron: "17 6 * * 5"
+  workflow_dispatch:   # lets you run it by hand from the Actions tab (always runs)
 
 permissions:
   contents: write
@@ -18,19 +20,40 @@ jobs:
   report:
     runs-on: ubuntu-latest
     steps:
+      - name: Payday-week gate
+        id: gate
+        run: |
+          # Anchor: Friday 2026-06-05, 20 pay periods before payday Fri 2026-10-23.
+          # Scheduled runs go ahead only on an even number of weeks after it.
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            days=$(( ( $(date -u +%s) - $(date -u -d 2026-06-05 +%s) ) / 86400 ))
+            if [ $(( (days / 7) % 2 )) -ne 0 ]; then
+              echo "Off week, skipping."
+              echo "run=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          fi
+          echo "run=true" >> "$GITHUB_OUTPUT"
+
       - uses: actions/checkout@v4
+        if: steps.gate.outputs.run == 'true'
 
       - uses: actions/setup-python@v5
+        if: steps.gate.outputs.run == 'true'
         with:
           python-version: "3.12"
           cache: pip
 
-      - run: pip install -r requirements.txt
+      - name: Install dependencies
+        if: steps.gate.outputs.run == 'true'
+        run: pip install -r requirements.txt
 
       - name: Build report
+        if: steps.gate.outputs.run == 'true'
         run: python momentum.py --out index.html --json data.json
 
       - name: Commit report
+        if: steps.gate.outputs.run == 'true'
         run: |
           git config user.name "momentum-bot"
           git config user.email "momentum-bot@users.noreply.github.com"

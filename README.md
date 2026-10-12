@@ -2,7 +2,7 @@
 
 Twice-monthly S&P 500 momentum report (price gain only, dividends excluded).
 
-- Runs on the 1st and 15th via GitHub Actions (`.github/workflows/report.yml`), or by hand from the Actions tab.
+- Runs every other Friday just after midnight Central (payday weeks, starting Fri 2026-10-23) via GitHub Actions (`.github/workflows/report.yml`), or by hand from the Actions tab.
 - `momentum.py` ranks S&P 500 stocks by 12-month and 6-month price gain as of the last completed close.
 - Candidates are the 12-month top 3 plus the 6-month top 3 (3 to 6 names).
 - Three checks per candidate: in both top 3 lists, above the 200-day average, within 15% of the 52-week high.
