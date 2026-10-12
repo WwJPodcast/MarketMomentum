@@ -1,0 +1,79 @@
+{
+  "asof": "2026-10-09",
+  "top12": [
+    {
+      "ticker": "SNDK",
+      "price": 1581.8199462890625,
+      "ret12": 11.197871958890692,
+      "ret6": 0.8575336527638124,
+      "above200": true,
+      "near_high": false,
+      "name": "Sandisk",
+      "sector": "Information Technology",
+      "in6": false,
+      "passes": false
+    },
+    {
+      "ticker": "MRNA",
+      "price": 225.0,
+      "ret12": 7.172902084566418,
+      "ret6": 3.3876756114674205,
+      "above200": true,
+      "near_high": true,
+      "name": "Moderna",
+      "sector": "Health Care",
+      "in6": true,
+      "passes": true
+    },
+    {
+      "ticker": "LITE",
+      "price": 1103.35498046875,
+      "ret12": 5.906328357576019,
+      "ret6": 0.23399838328136546,
+      "above200": true,
+      "near_high": true,
+      "name": "Lumentum",
+      "sector": "Information Technology",
+      "in6": false,
+      "passes": false
+    }
+  ],
+  "top6": [
+    {
+      "ticker": "MRNA",
+      "price": 225.0,
+      "ret12": 7.172902084566418,
+      "ret6": 3.3876756114674205,
+      "above200": true,
+      "near_high": true,
+      "name": "Moderna",
+      "sector": "Health Care",
+      "in12": true
+    },
+    {
+      "ticker": "DELL",
+      "price": 586.0599975585938,
+      "ret12": 2.7579994166534005,
+      "ret6": 2.229692361263464,
+      "above200": true,
+      "near_high": true,
+      "name": "Dell Technologies",
+      "sector": "Information Technology",
+      "in12": false
+    },
+    {
+      "ticker": "HPE",
+      "price": 73.45999908447266,
+      "ret12": 1.7984761555989581,
+      "ret6": 1.9585178940873806,
+      "above200": true,
+      "near_high": true,
+      "name": "Hewlett Packard Enterprise",
+      "sector": "Information Technology",
+      "in12": false
+    }
+  ],
+  "buys": [
+    "MRNA"
+  ]
+}
