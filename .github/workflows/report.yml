@@ -10,6 +10,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: momentum-report
+  cancel-in-progress: false   # never run two reports at once
+
 jobs:
   report:
     runs-on: ubuntu-latest
@@ -30,6 +34,13 @@ jobs:
         run: |
           git config user.name "momentum-bot"
           git config user.email "momentum-bot@users.noreply.github.com"
+          # Re-base the generated files onto the latest main so a push made while
+          # this job was running can never cause a rejected push.
+          mkdir -p "$RUNNER_TEMP/out"
+          cp index.html data.json "$RUNNER_TEMP/out/"
+          git fetch origin main
+          git reset --hard origin/main
+          cp "$RUNNER_TEMP/out/index.html" "$RUNNER_TEMP/out/data.json" .
           git add index.html data.json
           git diff --cached --quiet || git commit -m "Report $(date -u +%F)"
-          git push
+          git push origin HEAD:main
