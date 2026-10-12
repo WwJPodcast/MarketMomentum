@@ -1,6 +1,6 @@
 # MarketMomentum
 
-Twice-monthly S&P 500 momentum report (price gain only, dividends excluded).
+Biweekly (payday) S&P 500 momentum report (price gain only, dividends excluded).
 
 - Runs every other Friday just after midnight Central (payday weeks, starting Fri 2026-10-23) via GitHub Actions (`.github/workflows/report.yml`), or by hand from the Actions tab.
 - `momentum.py` ranks S&P 500 stocks by 12-month and 6-month price gain as of the last completed close.
