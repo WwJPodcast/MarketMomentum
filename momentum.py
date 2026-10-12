@@ -6,17 +6,21 @@ Usage:
   python momentum.py --demo --out demo.html              # synthetic data, offline test
 
 Rules:
-  * Rank S&P 500 stocks by 12-month and 6-month price gain as of the last close.
-  * Checks on the 12-month top 3: in 6-month top 3, above 200-day average,
-    within 15% of the 52-week high (closing prices).
-  * BUY = passes all three, max 2 picks, at most one per sector.
-  * NEW = in this 12-month top 3 but not in the previous report's (read from --json).
+  * Rank S&P 500 stocks by 12-month and 6-month price gain as of the last completed close.
+  * Candidates = the 12-month top 3 plus the 6-month top 3 (3 to 6 names).
+  * Three checks per candidate (closing prices):
+      1. in BOTH top 3 lists
+      2. above its 200-day average
+      3. within 15% of its 52-week high
+  * A candidate failing 2 or more checks is skipped.
+  * BUY = best remaining candidates (3/3 first, then 2/3; ties by 12-month gain),
+    max 2 picks, at most one per sector.
+  * NEW = not in the previous report's lists (read from --json before it is overwritten).
 """
 import argparse
 import datetime as dt
 import io
 import json
-import os
 from string import Template
 
 import numpy as np
@@ -24,6 +28,7 @@ import pandas as pd
 
 TOP_N = 3
 NEAR_HIGH = 0.85   # within 15% of 52-week high
+MIN_SCORE = 2      # need at least 2 of 3 checks
 BUY_MAX = 2
 
 
@@ -91,25 +96,36 @@ def compute(uni, px, asof=None):
     df = pd.DataFrame(rows).merge(uni, on="ticker")
     top12 = df.nlargest(TOP_N, "ret12").reset_index(drop=True)
     top6 = df.nlargest(TOP_N, "ret6").reset_index(drop=True)
-    six = set(top6["ticker"])
-    top12["in6"] = top12["ticker"].isin(six)
-    top12["passes"] = top12[["in6", "above200", "near_high"]].all(axis=1)
-    top6["in12"] = top6["ticker"].isin(set(top12["ticker"]))
+    s12, s6 = set(top12["ticker"]), set(top6["ticker"])
+
+    pool = df[df["ticker"].isin(s12 | s6)].copy()
+    pool["in12"] = pool["ticker"].isin(s12)
+    pool["in6"] = pool["ticker"].isin(s6)
+    pool["both"] = pool["in12"] & pool["in6"]
+    pool["score"] = pool[["both", "above200", "near_high"]].sum(axis=1).astype(int)
+    pool["skip"] = pool["score"] < MIN_SCORE
+    pool = pool.sort_values(["skip", "score", "ret12"],
+                            ascending=[True, False, False]).reset_index(drop=True)
+
     buys, seen = [], set()
-    for i, r in top12.iterrows():
-        if r["passes"] and r["sector"] not in seen and len(buys) < BUY_MAX:
+    for i, r in pool.iterrows():
+        if not r["skip"] and r["sector"] not in seen and len(buys) < BUY_MAX:
             buys.append(i)
             seen.add(r["sector"])
-    return dict(asof=last, top12=top12, top6=top6, buys=buys)
+    return dict(asof=last, pool=pool, top12=top12, top6=top6, buys=buys)
 
 
 def load_previous(path):
-    """Tickers in the previous report's 12-month top 3 (empty set if none)."""
+    """Tickers listed in the previous report (empty set if none)."""
     try:
         with open(path, encoding="utf-8") as f:
-            return {r["ticker"] for r in json.load(f)["top12"]}
-    except (OSError, ValueError, KeyError):
+            d = json.load(f)
+    except (OSError, ValueError):
         return set()
+    names = set()
+    for key in ("pool", "top12", "top6"):
+        names |= {r["ticker"] for r in d.get(key, []) if "ticker" in r}
+    return names
 
 
 # ---------- rendering ----------
@@ -120,6 +136,7 @@ CROSS = ('<svg width="{s}" height="{s}" viewBox="0 0 16 16" role="img" aria-labe
          '<path d="M4 4l8 8M12 4l-8 8" fill="none" style="stroke:var(--muted)" '
          'stroke-width="2" stroke-linecap="round"/></svg>')
 NEW_CHIP = '<span class="new">NEW</span>'
+SKIP_CHIP = '<span class="skip">SKIP</span>'
 
 
 def icon(ok, size=16):
@@ -137,45 +154,45 @@ def usd(x):
 def card(rank, r, is_new):
     checks = "".join(
         f'<div class="chk">{icon(ok, 14)}<span>{label}</span></div>'
-        for label, ok in [("In 6-mo top 3", r.in6), ("Above 200-day", r.above200),
+        for label, ok in [("In both top 3 lists", r.both), ("Above 200-day", r.above200),
                           ("Within 15% of high", r.near_high)])
-    chip = NEW_CHIP if is_new else ""
+    chips = (NEW_CHIP if is_new else "") + (f'<span class="part">{r.score}/3</span>' if r.score < 3 else "")
     return f"""<div class="card">
-<div class="row"><span class="tags"><span class="tag">BUY · #{rank}</span>{chip}</span><span class="mono muted sm">{usd(r.price)}</span></div>
+<div class="tags"><span class="tag">BUY · #{rank}</span>{chips}</div>
 <div class="big">{r.ticker}</div><div class="muted sm">{r['name']}</div>
+<div class="mono muted sm">{usd(r.price)}</div>
 <div class="row mt"><span class="lab">12-MO</span><span class="mono g lg">{pct(r.ret12)}</span></div>
 <div class="row"><span class="lab">6-MO</span><span class="mono g md">{pct(r.ret6)}</span></div>
 <div class="chks">{checks}</div></div>"""
 
 
+def gain(value, is_leader, size):
+    cls = "g b" if is_leader else "m"
+    return f'<span class="mono {cls}" style="font-size:{size}px">{pct(value)}</span>'
+
+
 def render(res, demo=False, prev=frozenset()):
-    t12, t6, buys, last = res["top12"], res["top6"], res["buys"], res["asof"]
-    new = (set(t12["ticker"]) - set(prev)) if prev else set()
+    pool, buys, last = res["pool"], res["buys"], res["asof"]
+    new = (set(pool["ticker"]) - set(prev)) if prev else set()
     if buys:
         body = '<div class="cards">' + "".join(
-            card(n + 1, t12.loc[i], t12.loc[i, "ticker"] in new) for n, i in enumerate(buys)) + "</div>"
-        head = "BUY · PASS ALL 3 CHECKS"
+            card(n + 1, pool.loc[i], pool.loc[i, "ticker"] in new) for n, i in enumerate(buys)) + "</div>"
+        head = "BUY CANDIDATES"
     else:
-        body = '<div class="none">No buy this period. No name passed all three checks.</div>'
+        body = '<div class="none">No buy this period. No leader passed at least 2 of 3 checks.</div>'
         head = "NO BUY THIS PERIOD"
     rows = ""
-    for i, r in t12.iterrows():
-        chip = NEW_CHIP if r.ticker in new else ""
-        rows += (f'<div class="trow"><div class="tk"><span class="mono muted sm">{i + 1}</span>'
-                 f'<b>{r.ticker}</b>{chip}</div><span class="mono g">{pct(r.ret12)}</span>'
-                 f'<div class="c">{icon(r.in6)}</div><div class="c">{icon(r.above200)}</div>'
+    for _, r in pool.iterrows():
+        chips = (NEW_CHIP if r.ticker in new else "") + (SKIP_CHIP if r.skip else "")
+        cls = "trow dim" if r.skip else "trow"
+        rows += (f'<div class="{cls}"><div class="tk"><b>{r.ticker}</b>{chips}</div>'
+                 f'{gain(r.ret12, r.in12, 11)}{gain(r.ret6, r.in6, 11)}'
+                 f'<div class="c">{icon(r.both)}</div><div class="c">{icon(r.above200)}</div>'
                  f'<div class="c">{icon(r.near_high)}</div></div>')
-    cells = ""
-    for i, r in t6.iterrows():
-        bar = r.ret6 / t6["ret6"].max() * 100
-        cls = "bar hi" if r.in12 else "bar"
-        cells += (f'<div class="cell"><div class="tk"><span class="mono muted sm">{i + 1}</span><b>{r.ticker}</b></div>'
-                  f'<div class="mono g">{pct(r.ret6)}</div>'
-                  f'<div class="track"><div class="{cls}" style="width:{bar:.0f}%"></div></div></div>')
     pill = "Demo data (synthetic)" if demo else "Live data"
     return Template(PAGE).substitute(
         pill=pill, report=dt.date.today().strftime("%a, %b %-d, %Y"),
-        asof=last.strftime("%a, %b %-d"), head=head, body=body, rows=rows, cells=cells)
+        asof=last.strftime("%a, %b %-d"), head=head, body=body, rows=rows)
 
 
 PAGE = """<!doctype html>
@@ -188,36 +205,35 @@ PAGE = """<!doctype html>
 :root{--bg:#F4F1EA;--panel:#fff;--track:#E2DED2;--text:#1B1F2A;--muted:#5A5F6B;--line:#D9D4C7;--blue:#1F3FA6;--blue-bar:#1F3FA6;--strip:#1F3FA6;--green:#0B6B3A;--bar-muted:#8D93A0}
 @media(prefers-color-scheme:dark){:root{--bg:#14171C;--panel:#1D2128;--track:#232830;--text:#ECEAE4;--muted:#A3A8B2;--line:#3A404B;--blue:#8FA8FF;--blue-bar:#6B8CFF;--strip:#3556D4;--green:#4CC585;--bar-muted:#5A6272}}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif}
-.wrap{max-width:390px;margin:0 auto;padding:26px 18px 20px;display:flex;flex-direction:column;gap:16px}
-.mono{font-family:'DM Mono',monospace}.muted{color:var(--muted)}.g{color:var(--green)}.sm{font-size:12px}.md{font-size:15px}.lg{font-size:19px}
+.wrap{max-width:390px;margin:0 auto;padding:22px 18px 16px;display:flex;flex-direction:column;gap:14px}
+.mono{font-family:'DM Mono',monospace}.muted{color:var(--muted)}.g{color:var(--green)}.m{color:var(--muted)}.b{font-weight:500}.sm{font-size:12px}.md{font-size:15px}.lg{font-size:19px}
 .eyebrow{font:11px 'DM Mono',monospace;letter-spacing:.14em;color:var(--muted)}
 .top{display:flex;justify-content:space-between;align-items:center}
 .pill{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 8px}
-h1{margin:6px 0;font-size:30px;line-height:1.1}.sub{font-size:13px;color:var(--muted)}
+h1{margin:6px 0;font-size:28px;line-height:1.1}.sub{font-size:13px;color:var(--muted)}
 .sec{display:flex;flex-direction:column;gap:10px}.lbl{font:11px 'DM Mono',monospace;letter-spacing:.14em;color:var(--blue)}
-.cards{display:flex;gap:10px}.card{flex:1;min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:6px}
-.row{display:flex;justify-content:space-between;align-items:baseline}.mt{margin-top:4px}.tags{display:flex;gap:5px;align-items:center}
-.tag{font:500 10px 'DM Mono',monospace;letter-spacing:.1em;background:var(--strip);color:#fff;border-radius:4px;padding:3px 7px}
-.new{font:10px 'DM Mono',monospace;letter-spacing:.08em;background:var(--text);color:var(--bg);border-radius:4px;padding:2px 5px}
-.big{font:600 40px/1 'Fraunces',serif;margin-top:4px}.lab{font:10px 'DM Mono',monospace;letter-spacing:.1em;color:var(--muted)}
-.chks{display:flex;flex-direction:column;gap:5px;margin-top:6px;padding-top:8px;border-top:1px solid var(--line)}
+.cards{display:flex;gap:10px}.card{flex:1;min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:4px}
+.row{display:flex;justify-content:space-between;align-items:baseline}.mt{margin-top:4px}.tags{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.tag{font:500 10px 'DM Mono',monospace;letter-spacing:.1em;background:var(--strip);color:#fff;border-radius:4px;padding:3px 7px;white-space:nowrap}
+.new{font:10px 'DM Mono',monospace;letter-spacing:.08em;background:var(--text);color:var(--bg);border-radius:4px;padding:2px 5px;white-space:nowrap}
+.part{font:10px 'DM Mono',monospace;border:1px solid var(--muted);color:var(--text);border-radius:4px;padding:1px 5px;white-space:nowrap}
+.skip{font:9px 'DM Mono',monospace;letter-spacing:.06em;border:1px solid var(--muted);color:var(--muted);border-radius:4px;padding:1px 4px;white-space:nowrap}
+.big{font:600 36px/1 'Fraunces',serif;margin-top:4px}.lab{font:10px 'DM Mono',monospace;letter-spacing:.1em;color:var(--muted)}
+.chks{display:flex;flex-direction:column;gap:4px;margin-top:6px;padding-top:7px;border-top:1px solid var(--line)}
 .chk{display:flex;align-items:center;gap:7px;font:10px 'DM Mono',monospace}.none{border:1px dashed var(--line);border-radius:10px;padding:16px;color:var(--muted);font-size:14px}
-.thead,.trow{display:grid;grid-template-columns:96px 80px 1fr 1fr 1fr;gap:4px;align-items:center}
-.thead div{font:9px/1.3 'DM Mono',monospace;color:var(--muted);text-align:center}.thead div:nth-child(2){text-align:left}
-.trow{padding:8px 0;border-top:1px solid var(--line)}.trow:last-child{border-bottom:1px solid var(--line)}
-.tk{display:flex;align-items:baseline;gap:7px}.tk b{font-size:17px}.c{display:flex;justify-content:center}
-.cells{display:flex;gap:14px}.cell{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}.cell .mono{font-size:13px}
-.track{height:6px;background:var(--track);border-radius:3px}.bar{height:6px;border-radius:3px;background:var(--bar-muted)}.bar.hi{background:var(--blue-bar)}
-.legend{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}.legend i{width:10px;height:10px;border-radius:2px;background:var(--blue-bar)}
-.foot{border-top:1px solid var(--line);padding-top:10px;font-size:11px;line-height:1.45;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+.thead,.trow{display:grid;grid-template-columns:92px 64px 58px 1fr 1fr 1fr;gap:4px;align-items:center}
+.thead div{font:9px/1.3 'DM Mono',monospace;color:var(--muted);text-align:center}.thead div:nth-child(2),.thead div:nth-child(3){text-align:left}
+.trow{padding:7px 0;border-top:1px solid var(--line)}.trow:last-child{border-bottom:1px solid var(--line)}
+.tk{display:flex;align-items:center;gap:5px}.tk b{font-size:15px}.trow.dim .tk b{color:var(--muted)}.c{display:flex;justify-content:center}
+.legend{font-size:11px;line-height:1.45;color:var(--muted);margin-top:6px}
+.foot{border-top:1px solid var(--line);padding-top:10px;font-size:11px;line-height:1.45;color:var(--muted);display:flex;flex-direction:column;gap:5px}
 </style></head><body><div class="wrap">
 <div><div class="top"><div class="eyebrow">S&amp;P 500 MOMENTUM</div><div class="pill">$pill</div></div>
 <h1>Momentum leaders</h1><div class="sub">$report · prices as of $asof close</div></div>
 <div class="sec"><div class="row"><div class="lbl">$head</div><div class="mono muted sm">$$100–$$200 total</div></div>$body</div>
-<div><div class="eyebrow" style="margin-bottom:6px">12-MONTH TOP 3 · CHECKS</div>
-<div class="thead"><div></div><div>12-MO</div><div>6-MO<br>TOP 3</div><div>ABOVE<br>200-DAY</div><div>NEAR<br>HIGH</div></div>$rows</div>
-<div class="sec"><div class="eyebrow">6-MONTH TOP 3</div><div class="cells">$cells</div>
-<div class="legend"><i></i><span>Also in the 12-month top 3</span></div></div>
+<div><div class="eyebrow" style="margin-bottom:6px">12- AND 6-MONTH LEADERS · CHECKS</div>
+<div class="thead"><div></div><div>12-MO</div><div>6-MO</div><div>IN BOTH<br>LISTS</div><div>ABOVE<br>200-DAY</div><div>NEAR<br>HIGH</div></div>$rows
+<div class="legend">Green gain = in that top 3. SKIP = fails 2 or more checks.</div></div>
 <div class="foot"><div><b style="color:var(--text)">Plan:</b> hold 1 year · stop-loss 35% below purchase · $$100–$$200 per period</div>
 <div>Near high = within 15% of 52-week high. NEW = not in the last report. Price gain only, dividends excluded. Information only, not investment advice.</div></div>
 </div></body></html>"""
@@ -242,16 +258,17 @@ def main():
 
     with open(a.out, "w", encoding="utf-8") as f:
         f.write(render(res, demo=a.demo, prev=prev))
+    buys = [res["pool"].loc[i, "ticker"] for i in res["buys"]]
     with open(a.json, "w", encoding="utf-8") as f:
         json.dump(dict(asof=str(res["asof"].date()),
+                       pool=res["pool"].to_dict("records"),
                        top12=res["top12"].to_dict("records"),
                        top6=res["top6"].to_dict("records"),
-                       buys=[res["top12"].loc[i, "ticker"] for i in res["buys"]]),
+                       buys=buys),
                   f, indent=2, default=str)
-    buys = [res["top12"].loc[i, "ticker"] for i in res["buys"]]
     print(f"as of {res['asof'].date()} | buys: {buys or 'none'}")
-    print(res["top12"][["ticker", "ret12", "ret6", "in6", "above200", "near_high", "passes"]].round(3).to_string(index=False))
-    print(res["top6"][["ticker", "ret6", "in12"]].round(3).to_string(index=False))
+    cols = ["ticker", "ret12", "ret6", "both", "above200", "near_high", "score", "skip"]
+    print(res["pool"][cols].round(3).to_string(index=False))
 
 
 if __name__ == "__main__":
