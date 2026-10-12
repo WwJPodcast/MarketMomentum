@@ -19,10 +19,6 @@ concurrency:
 jobs:
   report:
     runs-on: ubuntu-latest
-    env:
-      # Optional phone notifications via ntfy.sh. Add a repo secret named NTFY_TOPIC
-      # (Settings > Secrets and variables > Actions). Without it, notify steps are skipped.
-      NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
     steps:
       - name: Payday-week gate
         id: gate
@@ -71,20 +67,3 @@ jobs:
           git add index.html data.json
           git diff --cached --quiet || git commit -m "Report $(date -u +%F)"
           git push origin HEAD:main
-
-      - name: Notify - report ready
-        if: steps.gate.outputs.run == 'true' && env.NTFY_TOPIC != ''
-        run: |
-          sleep 90   # give GitHub Pages a moment to publish the new page
-          buys=$(python -c "import json; print(', '.join(json.load(open('data.json'))['buys']) or 'none')")
-          asof=$(python -c "import json; print(json.load(open('data.json'))['asof'])")
-          curl -fsS -H "Title: Momentum report ready" \
-            -H "Click: https://wwjpodcast.github.io/MarketMomentum/" \
-            -d "Buy candidates: $buys (close $asof)" "https://ntfy.sh/$NTFY_TOPIC"
-
-      - name: Notify - report failed
-        if: failure() && env.NTFY_TOPIC != ''
-        run: |
-          curl -fsS -H "Title: Momentum report FAILED" -H "Priority: high" \
-            -H "Click: https://github.com/WwJPodcast/MarketMomentum/actions" \
-            -d "The report did not build. Open Actions for the log." "https://ntfy.sh/$NTFY_TOPIC"
