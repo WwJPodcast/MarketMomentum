@@ -1,11 +1,11 @@
 {
-  "asof": "2026-10-09",
+  "asof": "2026-10-19",
   "pool": [
     {
       "ticker": "MRNA",
-      "price": 225.0,
-      "ret12": 7.172902084566418,
-      "ret6": 3.3876756114674205,
+      "price": 226.88999938964844,
+      "ret12": 7.723183290775481,
+      "ret6": 3.2235665345109377,
       "above200": true,
       "near_high": true,
       "name": "Moderna",
@@ -17,44 +17,14 @@
       "skip": false
     },
     {
-      "ticker": "LITE",
-      "price": 1103.35498046875,
-      "ret12": 5.906328357576019,
-      "ret6": 0.23399838328136546,
+      "ticker": "MPC",
+      "price": 473.69000244140625,
+      "ret12": 1.567843005945857,
+      "ret6": 1.2167157893654474,
       "above200": true,
       "near_high": true,
-      "name": "Lumentum",
-      "sector": "Information Technology",
-      "in12": true,
-      "in6": false,
-      "both": false,
-      "score": 2,
-      "skip": false
-    },
-    {
-      "ticker": "DELL",
-      "price": 586.0599975585938,
-      "ret12": 2.7579994166534005,
-      "ret6": 2.229692361263464,
-      "above200": true,
-      "near_high": true,
-      "name": "Dell Technologies",
-      "sector": "Information Technology",
-      "in12": false,
-      "in6": true,
-      "both": false,
-      "score": 2,
-      "skip": false
-    },
-    {
-      "ticker": "HPE",
-      "price": 73.45999908447266,
-      "ret12": 1.7984761555989581,
-      "ret6": 1.9585178940873806,
-      "above200": true,
-      "near_high": true,
-      "name": "Hewlett Packard Enterprise",
-      "sector": "Information Technology",
+      "name": "Marathon Petroleum",
+      "sector": "Energy",
       "in12": false,
       "in6": true,
       "both": false,
@@ -63,9 +33,9 @@
     },
     {
       "ticker": "SNDK",
-      "price": 1581.8199462890625,
-      "ret12": 11.197871958890692,
-      "ret6": 0.8575336527638124,
+      "price": 1371.1199951171875,
+      "ret12": 8.782533956139256,
+      "ret6": 0.4887458166274561,
       "above200": true,
       "near_high": false,
       "name": "Sandisk",
@@ -75,14 +45,44 @@
       "both": false,
       "score": 1,
       "skip": true
+    },
+    {
+      "ticker": "LITE",
+      "price": 834.510009765625,
+      "ret12": 4.064696171189588,
+      "ret6": -0.06661670458764801,
+      "above200": true,
+      "near_high": false,
+      "name": "Lumentum",
+      "sector": "Information Technology",
+      "in12": true,
+      "in6": false,
+      "both": false,
+      "score": 1,
+      "skip": true
+    },
+    {
+      "ticker": "DELL",
+      "price": 455.44000244140625,
+      "ret12": 2.044588632869997,
+      "ret6": 1.3171711796996237,
+      "above200": true,
+      "near_high": false,
+      "name": "Dell Technologies",
+      "sector": "Information Technology",
+      "in12": false,
+      "in6": true,
+      "both": false,
+      "score": 1,
+      "skip": true
     }
   ],
   "top12": [
     {
       "ticker": "SNDK",
-      "price": 1581.8199462890625,
-      "ret12": 11.197871958890692,
-      "ret6": 0.8575336527638124,
+      "price": 1371.1199951171875,
+      "ret12": 8.782533956139256,
+      "ret6": 0.4887458166274561,
       "above200": true,
       "near_high": false,
       "name": "Sandisk",
@@ -90,9 +90,9 @@
     },
     {
       "ticker": "MRNA",
-      "price": 225.0,
-      "ret12": 7.172902084566418,
-      "ret6": 3.3876756114674205,
+      "price": 226.88999938964844,
+      "ret12": 7.723183290775481,
+      "ret6": 3.2235665345109377,
       "above200": true,
       "near_high": true,
       "name": "Moderna",
@@ -100,11 +100,11 @@
     },
     {
       "ticker": "LITE",
-      "price": 1103.35498046875,
-      "ret12": 5.906328357576019,
-      "ret6": 0.23399838328136546,
+      "price": 834.510009765625,
+      "ret12": 4.064696171189588,
+      "ret6": -0.06661670458764801,
       "above200": true,
-      "near_high": true,
+      "near_high": false,
       "name": "Lumentum",
       "sector": "Information Technology"
     }
@@ -112,9 +112,9 @@
   "top6": [
     {
       "ticker": "MRNA",
-      "price": 225.0,
-      "ret12": 7.172902084566418,
-      "ret6": 3.3876756114674205,
+      "price": 226.88999938964844,
+      "ret12": 7.723183290775481,
+      "ret6": 3.2235665345109377,
       "above200": true,
       "near_high": true,
       "name": "Moderna",
@@ -122,27 +122,27 @@
     },
     {
       "ticker": "DELL",
-      "price": 586.0599975585938,
-      "ret12": 2.7579994166534005,
-      "ret6": 2.229692361263464,
+      "price": 455.44000244140625,
+      "ret12": 2.044588632869997,
+      "ret6": 1.3171711796996237,
       "above200": true,
-      "near_high": true,
+      "near_high": false,
       "name": "Dell Technologies",
       "sector": "Information Technology"
     },
     {
-      "ticker": "HPE",
-      "price": 73.45999908447266,
-      "ret12": 1.7984761555989581,
-      "ret6": 1.9585178940873806,
+      "ticker": "MPC",
+      "price": 473.69000244140625,
+      "ret12": 1.567843005945857,
+      "ret6": 1.2167157893654474,
       "above200": true,
       "near_high": true,
-      "name": "Hewlett Packard Enterprise",
-      "sector": "Information Technology"
+      "name": "Marathon Petroleum",
+      "sector": "Energy"
     }
   ],
   "buys": [
     "MRNA",
-    "LITE"
+    "MPC"
   ]
 }
