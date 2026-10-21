@@ -167,97 +167,24 @@
   "moonshots": {
     "asof": "2026-10-20",
     "missing": [],
+    "over_cap": [
+      "LITE",
+      "COHR",
+      "GLW",
+      "CIEN",
+      "ALAB",
+      "MRVL",
+      "AVGO",
+      "ANET",
+      "APH",
+      "VRT",
+      "FIX",
+      "BE",
+      "MU",
+      "SNDK",
+      "STX"
+    ],
     "top": [
-      {
-        "ticker": "MU",
-        "segment": "AI \u00b7 MEMORY",
-        "score": 80.5,
-        "streak": 1,
-        "parts": {
-          "theme": 9.0,
-          "bottleneck": 8.0,
-          "growth": 20.0,
-          "survival": 15.0,
-          "dilution": 9.5,
-          "size": 3.0,
-          "momentum": 16.0
-        }
-      },
-      {
-        "ticker": "SNDK",
-        "segment": "AI \u00b7 MEMORY",
-        "score": 80.2,
-        "streak": 1,
-        "parts": {
-          "theme": 9.0,
-          "bottleneck": 8.0,
-          "growth": 20.0,
-          "survival": 15.0,
-          "dilution": 10.0,
-          "size": 3.0,
-          "momentum": 15.2
-        }
-      },
-      {
-        "ticker": "ALAB",
-        "segment": "AI \u00b7 NETWORKING",
-        "score": 79.3,
-        "streak": 1,
-        "parts": {
-          "theme": 12.0,
-          "bottleneck": 6.0,
-          "growth": 20.0,
-          "survival": 15.0,
-          "dilution": 7.8,
-          "size": 3.0,
-          "momentum": 15.5
-        }
-      },
-      {
-        "ticker": "APH",
-        "segment": "AI \u00b7 NETWORKING",
-        "score": 75.5,
-        "streak": 1,
-        "parts": {
-          "theme": 12.0,
-          "bottleneck": 6.0,
-          "growth": 19.6,
-          "survival": 7.5,
-          "dilution": 9.5,
-          "size": 3.0,
-          "momentum": 18.0
-        }
-      },
-      {
-        "ticker": "LITE",
-        "segment": "AI \u00b7 OPTICAL",
-        "score": 75.4,
-        "streak": 1,
-        "parts": {
-          "theme": 15.0,
-          "bottleneck": 10.0,
-          "growth": 20.0,
-          "survival": 15.0,
-          "dilution": 0.0,
-          "size": 3.0,
-          "momentum": 12.4
-        }
-      },
-      {
-        "ticker": "MRVL",
-        "segment": "AI \u00b7 NETWORKING",
-        "score": 73.8,
-        "streak": 1,
-        "parts": {
-          "theme": 12.0,
-          "bottleneck": 6.0,
-          "growth": 14.1,
-          "survival": 15.0,
-          "dilution": 7.9,
-          "size": 3.0,
-          "momentum": 15.7
-        }
-      },
       {
         "ticker": "AXTI",
         "segment": "AI \u00b7 OPTICAL",
@@ -289,24 +216,9 @@
         }
       },
       {
-        "ticker": "ANET",
-        "segment": "AI \u00b7 NETWORKING",
-        "score": 69.7,
-        "streak": 1,
-        "parts": {
-          "theme": 9.0,
-          "bottleneck": 4.0,
-          "growth": 14.4,
-          "survival": 15.0,
-          "dilution": 9.8,
-          "size": 3.0,
-          "momentum": 14.5
-        }
-      },
-      {
         "ticker": "STRL",
         "segment": "AI \u00b7 POWER",
-        "score": 68.5,
+        "score": 69.5,
         "streak": 1,
         "parts": {
           "theme": 6.0,
@@ -314,14 +226,14 @@
           "growth": 20.0,
           "survival": 15.0,
           "dilution": 9.6,
-          "size": 6.0,
+          "size": 7.0,
           "momentum": 7.9
         }
       },
       {
         "ticker": "RKLB",
         "segment": "SPACE \u00b7 LAUNCH",
-        "score": 67.3,
+        "score": 68.3,
         "streak": 1,
         "parts": {
           "theme": 15.0,
@@ -329,14 +241,14 @@
           "growth": 20.0,
           "survival": 15.0,
           "dilution": 0.0,
-          "size": 3.0,
+          "size": 4.0,
           "momentum": 4.3
         }
       },
       {
         "ticker": "ONTO",
         "segment": "SEMIS \u00b7 EQUIP",
-        "score": 66.4,
+        "score": 67.4,
         "streak": 1,
         "parts": {
           "theme": 9.0,
@@ -344,23 +256,23 @@
           "growth": 13.8,
           "survival": 15.0,
           "dilution": 9.9,
-          "size": 6.0,
+          "size": 7.0,
           "momentum": 6.6
         }
       },
       {
-        "ticker": "BE",
-        "segment": "AI \u00b7 POWER",
-        "score": 66.2,
+        "ticker": "CRDO",
+        "segment": "AI \u00b7 NETWORKING",
+        "score": 66.6,
         "streak": 1,
         "parts": {
-          "theme": 9.0,
+          "theme": 12.0,
           "bottleneck": 6.0,
-          "growth": 20.0,
+          "growth": 15.0,
           "survival": 15.0,
-          "dilution": 0.0,
-          "size": 3.0,
-          "momentum": 13.2
+          "dilution": 5.7,
+          "size": 4.0,
+          "momentum": 8.9
         }
       },
       {
@@ -379,18 +291,123 @@
         }
       },
       {
-        "ticker": "FIX",
-        "segment": "AI \u00b7 POWER",
-        "score": 66.0,
+        "ticker": "AEHR",
+        "segment": "SEMIS \u00b7 EQUIP",
+        "score": 65.2,
         "streak": 1,
         "parts": {
           "theme": 9.0,
-          "bottleneck": 4.0,
-          "growth": 17.6,
+          "bottleneck": 6.0,
+          "growth": 13.4,
           "survival": 15.0,
+          "dilution": 5.6,
+          "size": 10.0,
+          "momentum": 6.1
+        }
+      },
+      {
+        "ticker": "FN",
+        "segment": "AI \u00b7 OPTICAL",
+        "score": 64.6,
+        "streak": 1,
+        "parts": {
+          "theme": 12.0,
+          "bottleneck": 6.0,
+          "growth": 11.2,
+          "survival": 15.0,
+          "dilution": 9.9,
+          "size": 7.0,
+          "momentum": 3.6
+        }
+      },
+      {
+        "ticker": "NVT",
+        "segment": "AI \u00b7 POWER",
+        "score": 63.9,
+        "streak": 1,
+        "parts": {
+          "theme": 9.0,
+          "bottleneck": 6.0,
+          "growth": 18.2,
+          "survival": 7.5,
+          "dilution": 9.7,
+          "size": 4.0,
+          "momentum": 9.4
+        }
+      },
+      {
+        "ticker": "GSAT",
+        "segment": "SPACE \u00b7 SATELLITES",
+        "score": 63.6,
+        "streak": 1,
+        "parts": {
+          "theme": 9.0,
+          "bottleneck": 6.0,
+          "growth": 0.0,
+          "survival": 15.0,
+          "dilution": 8.9,
+          "size": 7.0,
+          "momentum": 17.7
+        }
+      },
+      {
+        "ticker": "IRDM",
+        "segment": "SPACE \u00b7 SATELLITES",
+        "score": 62.7,
+        "streak": 1,
+        "parts": {
+          "theme": 9.0,
+          "bottleneck": 6.0,
+          "growth": 6.0,
+          "survival": 7.5,
           "dilution": 10.0,
-          "size": 3.0,
-          "momentum": 7.4
+          "size": 10.0,
+          "momentum": 14.2
+        }
+      },
+      {
+        "ticker": "FLY",
+        "segment": "SPACE \u00b7 LAUNCH",
+        "score": 62.4,
+        "streak": 1,
+        "parts": {
+          "theme": 12.0,
+          "bottleneck": 8.0,
+          "growth": 15.0,
+          "survival": 14.5,
+          "dilution": 1.9,
+          "size": 10.0,
+          "momentum": 1.0
+        }
+      },
+      {
+        "ticker": "KTOS",
+        "segment": "SPACE \u00b7 COMPONENTS",
+        "score": 61.1,
+        "streak": 1,
+        "parts": {
+          "theme": 12.0,
+          "bottleneck": 6.0,
+          "growth": 12.6,
+          "survival": 15.0,
+          "dilution": 4.4,
+          "size": 7.0,
+          "momentum": 4.1
+        }
+      },
+      {
+        "ticker": "MOG-A",
+        "segment": "SPACE \u00b7 COMPONENTS",
+        "score": 60.0,
+        "streak": 1,
+        "parts": {
+          "theme": 9.0,
+          "bottleneck": 6.0,
+          "growth": 8.8,
+          "survival": 7.5,
+          "dilution": 7.0,
+          "size": 7.0,
+          "momentum": 14.7
         }
       }
     ]

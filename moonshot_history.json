@@ -1,39 +1,11 @@
 {
  "asof": "2026-10-20",
  "tickers": {
-  "MU": {
-   "streak": 1,
-   "first": "2026-10-20"
-  },
-  "SNDK": {
-   "streak": 1,
-   "first": "2026-10-20"
-  },
-  "ALAB": {
-   "streak": 1,
-   "first": "2026-10-20"
-  },
-  "APH": {
-   "streak": 1,
-   "first": "2026-10-20"
-  },
-  "LITE": {
-   "streak": 1,
-   "first": "2026-10-20"
-  },
-  "MRVL": {
-   "streak": 1,
-   "first": "2026-10-20"
-  },
   "AXTI": {
    "streak": 1,
    "first": "2026-10-20"
   },
   "RDW": {
-   "streak": 1,
-   "first": "2026-10-20"
-  },
-  "ANET": {
    "streak": 1,
    "first": "2026-10-20"
   },
@@ -49,7 +21,7 @@
    "streak": 1,
    "first": "2026-10-20"
   },
-  "BE": {
+  "CRDO": {
    "streak": 1,
    "first": "2026-10-20"
   },
@@ -57,7 +29,35 @@
    "streak": 1,
    "first": "2026-10-20"
   },
-  "FIX": {
+  "AEHR": {
+   "streak": 1,
+   "first": "2026-10-20"
+  },
+  "FN": {
+   "streak": 1,
+   "first": "2026-10-20"
+  },
+  "NVT": {
+   "streak": 1,
+   "first": "2026-10-20"
+  },
+  "GSAT": {
+   "streak": 1,
+   "first": "2026-10-20"
+  },
+  "IRDM": {
+   "streak": 1,
+   "first": "2026-10-20"
+  },
+  "FLY": {
+   "streak": 1,
+   "first": "2026-10-20"
+  },
+  "KTOS": {
+   "streak": 1,
+   "first": "2026-10-20"
+  },
+  "MOG-A": {
    "streak": 1,
    "first": "2026-10-20"
   }
