@@ -38,7 +38,7 @@ jobs:
           git config user.email "momentum-bot@users.noreply.github.com"
           # Re-base the generated files onto the latest main so a push made while
           # this job was running can never cause a rejected push.
-          FILES="index.html data.json paydays.json moonshot_history.json fundamentals_cache.json"
+          FILES="index.html data.json paydays.json"
           mkdir -p "$RUNNER_TEMP/out"
           for f in $FILES; do [ -f "$f" ] && cp "$f" "$RUNNER_TEMP/out/"; done || true
           git fetch origin main

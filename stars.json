@@ -1,0 +1,58 @@
+{
+  "_note": "Star Potential (page 2). Segments and stocks are a researched view (Koch's Star Principle: the leader of a niche growing 10%+ a year). Ranking and membership change only at the monthly check or quarterly re-rank, or on a named trigger: pending acquisition, guidance cut, leader clearly losing share, 35% drawdown. Top 3 segments carry 3 stocks, bottom 3 carry 2.",
+  "reviewed": "2026-10-21",
+  "next_full_review": "2027-01",
+  "segments": [
+    {
+      "rank": 1, "name": "OBESITY DRUGS", "growth": "+21–33%/yr",
+      "note": "Lilly holds 60%+ of US GLP-1 sales and guides ~25% growth for 2026; Novo guides to a decline and is losing share.",
+      "stocks": [
+        {"ticker": "LLY", "role": "LEADER"},
+        {"ticker": "VKTX", "role": "CHALLENGER"},
+        {"ticker": "NVO", "role": "LOSING SHARE"}
+      ]
+    },
+    {
+      "rank": 2, "name": "AI POWER + COOLING", "growth": "+22%/yr",
+      "note": "Liquid cooling forecast to grow 21.6%/yr to 2030. Vertiv backlog about $15B, up 109%; trades near 40x forward earnings.",
+      "stocks": [
+        {"ticker": "VRT", "role": "LEADER"},
+        {"ticker": "NVT", "role": "CHALLENGER"},
+        {"ticker": "ETN", "role": "DIVERSIFIED"}
+      ]
+    },
+    {
+      "rank": 3, "name": "DIRECT-TO-PHONE SAT", "growth": "+49%/yr",
+      "note": "Revenue forecast about $12B by 2030. Starlink leads deployment, AST SpaceMobile leads operator reach; Amazon Leo is buying Globalstar (excluded: price tied to the deal).",
+      "stocks": [
+        {"ticker": "SPCX", "role": "LEADER"},
+        {"ticker": "ASTS", "role": "CONTENDER"},
+        {"ticker": "IRDM", "role": "UNVERIFIED"}
+      ]
+    },
+    {
+      "rank": 4, "name": "AI OPTICAL LINKS", "growth": "+40%/yr AI part",
+      "note": "800G shipments expected to more than double in 2026. Leader unclear: Innolight (not US-listed) ranked first in 2023; Coherent about 22% share in 2025.",
+      "stocks": [
+        {"ticker": "COHR", "role": "CONTENDER"},
+        {"ticker": "LITE", "role": "CONTENDER"}
+      ]
+    },
+    {
+      "rank": 5, "name": "MILITARY DRONES", "growth": "+14%/yr",
+      "note": "Pentagon $1.1B program for 340,000 drones by 2027, but 25 companies compete; no clear leader.",
+      "stocks": [
+        {"ticker": "AVAV", "role": "CONTENDER"},
+        {"ticker": "KTOS", "role": "CONTENDER"}
+      ]
+    },
+    {
+      "rank": 6, "name": "GRID STORAGE", "growth": "+22%/yr (old)",
+      "note": "Growth data is stale (2021 and 2023 forecasts); market shares unverified. Storage is a small part of Tesla.",
+      "stocks": [
+        {"ticker": "FLNC", "role": "CONTENDER"},
+        {"ticker": "TSLA", "role": "UNVERIFIED"}
+      ]
+    }
+  ]
+}

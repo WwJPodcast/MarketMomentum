@@ -361,9 +361,7 @@ def main():
     ap.add_argument("--asof", help="YYYY-MM-DD; default = last completed close")
     ap.add_argument("--seed", type=int, default=7, help="demo mode random seed")
     ap.add_argument("--paydays", default="paydays.json", help="saved payday lists (for NEW)")
-    ap.add_argument("--moon-watchlist", default="watchlist.json")
-    ap.add_argument("--moon-history", default="moonshot_history.json")
-    ap.add_argument("--moon-cache", default="fundamentals_cache.json")
+    ap.add_argument("--stars", default="stars.json")
     ap.add_argument("--demo-gate", choices=["on", "off"], default="on",
                     help="demo mode: simulate the S&P 500 above/below its 200-day average")
     a = ap.parse_args()
@@ -381,20 +379,22 @@ def main():
     mpx = demo_market(px.index, a.demo_gate == "on") if a.demo else load_market()
     gate = market_gate(mpx, res["asof"], prev_gate)
 
-    # page 2 (moonshot watchlist) must never break page 1
+    # page 2 (Star Potential) must never break page 1
     moon = None
     try:
-        import moonshots
-        page2, moon = moonshots.build(res["asof"], today, a.moon_watchlist, a.moon_history,
-                                      a.moon_cache, demo=a.demo, seed=a.seed, index=px.index)
-        css2 = moonshots.CSS
+        import stars
+        page2, moon = stars.build(res["asof"], today, a.stars, demo=a.demo, seed=a.seed,
+                                  index=px.index, mpx=mpx)
+        css2 = stars.CSS
         if moon["missing"]:
-            print("watchlist tickers with no price data:", ", ".join(moon["missing"]))
+            print("star tickers with no price data:", ", ".join(moon["missing"]))
+        if moon["alerts"]:
+            print("35% drawdown alerts:", ", ".join(moon["alerts"]))
     except Exception as e:
         print(f"page 2 failed, publishing page 1 only: {e!r}")
         try:
-            import moonshots
-            page2, css2 = moonshots.fallback_html("Updated " + today.strftime("%a, %b %-d, %Y")), moonshots.CSS
+            import stars
+            page2, css2 = stars.fallback_html("Updated " + today.strftime("%a, %b %-d, %Y")), stars.CSS
         except Exception:
             page2, css2 = "", ""
     with open(a.out, "w", encoding="utf-8") as f:
@@ -409,7 +409,7 @@ def main():
                        pool=res["pool"].to_dict("records"),
                        top12=res["top12"].to_dict("records"),
                        top6=res["top6"].to_dict("records"),
-                       buys=buys, moonshots=moon),
+                       buys=buys, stars=moon),
                   f, indent=2, default=str)
     print(f"as of {res['asof'].date()} | buys: {buys or 'none'}")
     cols = ["ticker", "ret12", "ret6", "both", "above200", "near_high", "score", "skip"]
