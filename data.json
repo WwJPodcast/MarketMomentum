@@ -164,267 +164,238 @@
     "MRNA",
     "MPC"
   ],
-  "moonshots": {
+  "stars": {
     "asof": "2026-10-20",
+    "reviewed": "2026-10-21",
     "missing": [],
-    "over_cap": [
-      "LITE",
-      "COHR",
-      "GLW",
-      "CIEN",
-      "ALAB",
-      "MRVL",
-      "AVGO",
-      "ANET",
-      "APH",
-      "VRT",
-      "FIX",
-      "BE",
-      "MU",
-      "SNDK",
-      "STX"
-    ],
-    "top": [
+    "sp6": 0.08488082607674063,
+    "segments": [
       {
-        "ticker": "AXTI",
-        "segment": "AI \u00b7 OPTICAL",
-        "score": 73.4,
-        "price": 57.09,
-        "streak": 1,
-        "parts": {
-          "theme": 12.0,
-          "bottleneck": 10.0,
-          "growth": 20.0,
-          "survival": 15.0,
-          "dilution": 0.0,
-          "size": 10.0,
-          "momentum": 6.4
-        }
+        "rank": 1,
+        "name": "OBESITY DRUGS",
+        "med6": -0.027434518919145168,
+        "above200": [
+          1,
+          3
+        ],
+        "stocks": [
+          {
+            "ticker": "LLY",
+            "role": "LEADER",
+            "price": 1283.6600341796875,
+            "ret6": 0.3954342864566449,
+            "vs50": 0.08557257005148222,
+            "above200": true,
+            "dd": 0.0,
+            "bars": 316
+          },
+          {
+            "ticker": "VKTX",
+            "role": "CHALLENGER",
+            "price": 26.709999084472656,
+            "ret6": -0.2482409231030872,
+            "vs50": -0.16092310415796962,
+            "above200": false,
+            "dd": -0.366010006947584,
+            "bars": 316
+          },
+          {
+            "ticker": "NVO",
+            "role": "LOSING SHARE",
+            "price": 39.349998474121094,
+            "ret6": -0.027434518919145168,
+            "vs50": -0.07113657288210329,
+            "above200": false,
+            "dd": -0.3849640707148765,
+            "bars": 316
+          }
+        ]
       },
       {
-        "ticker": "RDW",
-        "segment": "SPACE \u00b7 COMPONENTS",
-        "score": 70.1,
-        "price": 8.3,
-        "streak": 1,
-        "parts": {
-          "theme": 12.0,
-          "bottleneck": 6.0,
-          "growth": 20.0,
-          "survival": 15.0,
-          "dilution": 0.0,
-          "size": 10.0,
-          "momentum": 7.1
-        }
+        "rank": 2,
+        "name": "AI POWER + COOLING",
+        "med6": -0.06278675044293425,
+        "above200": [
+          0,
+          3
+        ],
+        "stocks": [
+          {
+            "ticker": "VRT",
+            "role": "LEADER",
+            "price": 203.55999755859375,
+            "ret6": -0.3525651372805685,
+            "vs50": -0.19479059250399833,
+            "above200": false,
+            "dd": -0.45894800623443366,
+            "bars": 316
+          },
+          {
+            "ticker": "NVT",
+            "role": "CHALLENGER",
+            "price": 139.77999877929688,
+            "ret6": 0.029307773476427323,
+            "vs50": -0.11629190002910927,
+            "above200": false,
+            "dd": -0.24172723469580837,
+            "bars": 316
+          },
+          {
+            "ticker": "ETN",
+            "role": "DIVERSIFIED",
+            "price": 381.9800109863281,
+            "ret6": -0.06278675044293425,
+            "vs50": -0.09335854912705388,
+            "above200": false,
+            "dd": -0.16953644211980534,
+            "bars": 316
+          }
+        ]
       },
       {
-        "ticker": "STRL",
-        "segment": "AI \u00b7 POWER",
-        "score": 69.5,
-        "price": 412.25,
-        "streak": 1,
-        "parts": {
-          "theme": 6.0,
-          "bottleneck": 4.0,
-          "growth": 20.0,
-          "survival": 15.0,
-          "dilution": 9.6,
-          "size": 7.0,
-          "momentum": 7.9
-        }
+        "rank": 3,
+        "name": "DIRECT-TO-PHONE SAT",
+        "med6": -0.21975752450133662,
+        "above200": [
+          1,
+          2
+        ],
+        "stocks": [
+          {
+            "ticker": "SPCX",
+            "role": "LEADER",
+            "price": 147.7899932861328,
+            "ret6": null,
+            "vs50": -0.005604831660956711,
+            "above200": null,
+            "dd": -0.3008657282139623,
+            "bars": 90
+          },
+          {
+            "ticker": "ASTS",
+            "role": "CONTENDER",
+            "price": 41.130001068115234,
+            "ret6": -0.4922222090356144,
+            "vs50": -0.3103413386813575,
+            "above200": false,
+            "dd": -0.6909609873029536,
+            "bars": 316
+          },
+          {
+            "ticker": "IRDM",
+            "role": "UNVERIFIED",
+            "price": 43.939998626708984,
+            "ret6": 0.05270716003294118,
+            "vs50": -0.0768946616164562,
+            "above200": true,
+            "dd": -0.211414255849248,
+            "bars": 316
+          }
+        ]
       },
       {
-        "ticker": "RKLB",
-        "segment": "SPACE \u00b7 LAUNCH",
-        "score": 68.3,
-        "price": 50.9,
-        "streak": 1,
-        "parts": {
-          "theme": 15.0,
-          "bottleneck": 10.0,
-          "growth": 20.0,
-          "survival": 15.0,
-          "dilution": 0.0,
-          "size": 4.0,
-          "momentum": 4.3
-        }
+        "rank": 4,
+        "name": "AI OPTICAL LINKS",
+        "med6": -0.2070380846895803,
+        "above200": [
+          1,
+          2
+        ],
+        "stocks": [
+          {
+            "ticker": "COHR",
+            "role": "CONTENDER",
+            "price": 231.8000030517578,
+            "ret6": -0.3329688453921277,
+            "vs50": -0.21434167992941267,
+            "above200": false,
+            "dd": -0.45700298648902526,
+            "bars": 316
+          },
+          {
+            "ticker": "LITE",
+            "role": "CONTENDER",
+            "price": 822.510009765625,
+            "ret6": -0.08110732398703291,
+            "vs50": -0.11626519923399081,
+            "above200": true,
+            "dd": -0.27429857768810206,
+            "bars": 316
+          }
+        ]
       },
       {
-        "ticker": "ONTO",
-        "segment": "SEMIS \u00b7 EQUIP",
-        "score": 67.4,
-        "price": 219.62,
-        "streak": 1,
-        "parts": {
-          "theme": 9.0,
-          "bottleneck": 6.0,
-          "growth": 13.8,
-          "survival": 15.0,
-          "dilution": 9.9,
-          "size": 7.0,
-          "momentum": 6.6
-        }
+        "rank": 5,
+        "name": "MILITARY DRONES",
+        "med6": -0.42283167683368444,
+        "above200": [
+          0,
+          2
+        ],
+        "stocks": [
+          {
+            "ticker": "AVAV",
+            "role": "CONTENDER",
+            "price": 117.62999725341797,
+            "ret6": -0.40358971859474924,
+            "vs50": -0.21785549556400519,
+            "above200": false,
+            "dd": -0.7005803552424581,
+            "bars": 316
+          },
+          {
+            "ticker": "KTOS",
+            "role": "CONTENDER",
+            "price": 38.959999084472656,
+            "ret6": -0.44207363507261965,
+            "vs50": -0.198878116699992,
+            "above200": false,
+            "dd": -0.7019583941198566,
+            "bars": 316
+          }
+        ]
       },
       {
-        "ticker": "CRDO",
-        "segment": "AI \u00b7 NETWORKING",
-        "score": 66.6,
-        "price": 171.51,
-        "streak": 1,
-        "parts": {
-          "theme": 12.0,
-          "bottleneck": 6.0,
-          "growth": 15.0,
-          "survival": 15.0,
-          "dilution": 5.7,
-          "size": 4.0,
-          "momentum": 8.9
-        }
-      },
-      {
-        "ticker": "KRMN",
-        "segment": "SPACE \u00b7 COMPONENTS",
-        "score": 66.1,
-        "price": 35.03,
-        "streak": 1,
-        "parts": {
-          "theme": 12.0,
-          "bottleneck": 6.0,
-          "growth": 19.5,
-          "survival": 6.8,
-          "dilution": 9.9,
-          "size": 10.0,
-          "momentum": 1.8
-        }
-      },
-      {
-        "ticker": "AEHR",
-        "segment": "SEMIS \u00b7 EQUIP",
-        "score": 65.2,
-        "price": 61.99,
-        "streak": 1,
-        "parts": {
-          "theme": 9.0,
-          "bottleneck": 6.0,
-          "growth": 13.4,
-          "survival": 15.0,
-          "dilution": 5.6,
-          "size": 10.0,
-          "momentum": 6.1
-        }
-      },
-      {
-        "ticker": "FN",
-        "segment": "AI \u00b7 OPTICAL",
-        "score": 64.6,
-        "price": 355.48,
-        "streak": 1,
-        "parts": {
-          "theme": 12.0,
-          "bottleneck": 6.0,
-          "growth": 11.2,
-          "survival": 15.0,
-          "dilution": 9.9,
-          "size": 7.0,
-          "momentum": 3.6
-        }
-      },
-      {
-        "ticker": "NVT",
-        "segment": "AI \u00b7 POWER",
-        "score": 63.9,
-        "price": 139.78,
-        "streak": 1,
-        "parts": {
-          "theme": 9.0,
-          "bottleneck": 6.0,
-          "growth": 18.2,
-          "survival": 7.5,
-          "dilution": 9.7,
-          "size": 4.0,
-          "momentum": 9.4
-        }
-      },
-      {
-        "ticker": "GSAT",
-        "segment": "SPACE \u00b7 SATELLITES",
-        "score": 63.6,
-        "price": 83.4,
-        "streak": 1,
-        "parts": {
-          "theme": 9.0,
-          "bottleneck": 6.0,
-          "growth": 0.0,
-          "survival": 15.0,
-          "dilution": 8.9,
-          "size": 7.0,
-          "momentum": 17.7
-        }
-      },
-      {
-        "ticker": "IRDM",
-        "segment": "SPACE \u00b7 SATELLITES",
-        "score": 62.7,
-        "price": 43.94,
-        "streak": 1,
-        "parts": {
-          "theme": 9.0,
-          "bottleneck": 6.0,
-          "growth": 6.0,
-          "survival": 7.5,
-          "dilution": 10.0,
-          "size": 10.0,
-          "momentum": 14.2
-        }
-      },
-      {
-        "ticker": "FLY",
-        "segment": "SPACE \u00b7 LAUNCH",
-        "score": 62.4,
-        "price": 16.31,
-        "streak": 1,
-        "parts": {
-          "theme": 12.0,
-          "bottleneck": 8.0,
-          "growth": 15.0,
-          "survival": 14.5,
-          "dilution": 1.9,
-          "size": 10.0,
-          "momentum": 1.0
-        }
-      },
-      {
-        "ticker": "KTOS",
-        "segment": "SPACE \u00b7 COMPONENTS",
-        "score": 61.1,
-        "price": 38.96,
-        "streak": 1,
-        "parts": {
-          "theme": 12.0,
-          "bottleneck": 6.0,
-          "growth": 12.6,
-          "survival": 15.0,
-          "dilution": 4.4,
-          "size": 7.0,
-          "momentum": 4.1
-        }
-      },
-      {
-        "ticker": "MOG-A",
-        "segment": "SPACE \u00b7 COMPONENTS",
-        "score": 60.0,
-        "price": 364.43,
-        "streak": 1,
-        "parts": {
-          "theme": 9.0,
-          "bottleneck": 6.0,
-          "growth": 8.8,
-          "survival": 7.5,
-          "dilution": 7.0,
-          "size": 7.0,
-          "momentum": 14.7
-        }
+        "rank": 6,
+        "name": "GRID STORAGE",
+        "med6": -0.289177814060068,
+        "above200": [
+          0,
+          2
+        ],
+        "stocks": [
+          {
+            "ticker": "FLNC",
+            "role": "CONTENDER",
+            "price": 5.929999828338623,
+            "ret6": -0.5304829948846662,
+            "vs50": -0.3571676553540787,
+            "above200": false,
+            "dd": -0.8160099313508349,
+            "bars": 316
+          },
+          {
+            "ticker": "TSLA",
+            "role": "UNVERIFIED",
+            "price": 373.7099914550781,
+            "ret6": -0.04787263323546975,
+            "vs50": 0.03489698127239538,
+            "above200": false,
+            "dd": -0.23713973273010847,
+            "bars": 316
+          }
+        ]
       }
+    ],
+    "alerts": [
+      "VKTX",
+      "NVO",
+      "VRT",
+      "ASTS",
+      "COHR",
+      "AVAV",
+      "KTOS",
+      "FLNC"
     ]
   }
 }
