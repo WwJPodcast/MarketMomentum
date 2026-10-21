@@ -1,0 +1,65 @@
+{
+ "asof": "2026-10-20",
+ "tickers": {
+  "MU": {
+   "streak": 1,
+   "first": "2026-10-20"
+  },
+  "SNDK": {
+   "streak": 1,
+   "first": "2026-10-20"
+  },
+  "ALAB": {
+   "streak": 1,
+   "first": "2026-10-20"
+  },
+  "APH": {
+   "streak": 1,
+   "first": "2026-10-20"
+  },
+  "LITE": {
+   "streak": 1,
+   "first": "2026-10-20"
+  },
+  "MRVL": {
+   "streak": 1,
+   "first": "2026-10-20"
+  },
+  "AXTI": {
+   "streak": 1,
+   "first": "2026-10-20"
+  },
+  "RDW": {
+   "streak": 1,
+   "first": "2026-10-20"
+  },
+  "ANET": {
+   "streak": 1,
+   "first": "2026-10-20"
+  },
+  "STRL": {
+   "streak": 1,
+   "first": "2026-10-20"
+  },
+  "RKLB": {
+   "streak": 1,
+   "first": "2026-10-20"
+  },
+  "ONTO": {
+   "streak": 1,
+   "first": "2026-10-20"
+  },
+  "BE": {
+   "streak": 1,
+   "first": "2026-10-20"
+  },
+  "KRMN": {
+   "streak": 1,
+   "first": "2026-10-20"
+  },
+  "FIX": {
+   "streak": 1,
+   "first": "2026-10-20"
+  }
+ }
+}
