@@ -260,14 +260,15 @@ CSS = """
 html{scroll-snap-type:y proximity}
 .page{min-height:100vh;min-height:100svh;scroll-snap-align:start}
 .page>.wrap{min-height:inherit}
-.ms-head,.ms-row{display:grid;grid-template-columns:86px 1fr 32px 74px;gap:6px;align-items:center}
+.ms-head,.ms-row{display:grid;grid-template-columns:80px 66px 54px 28px 1fr;gap:6px;align-items:center}
 .ms-head{align-items:end;padding-bottom:2px}
 .ms-head button{font:9px 'DM Mono',monospace;letter-spacing:.06em;background:none;border:0;padding:6px 0;margin:0;cursor:pointer;color:var(--muted);min-height:32px}
 .ms-head button.on{color:var(--blue);font-weight:500}
-.ms-row{padding:6px 0;border-top:1px solid var(--line)}
+.ms-row{padding:3px 0;border-top:1px solid var(--line)}
 .ms-row:last-child{border-bottom:1px solid var(--line)}
 .ms-tk{display:flex;align-items:baseline;gap:7px}.ms-tk .n{font:11px 'DM Mono',monospace;color:var(--muted);width:14px}.ms-tk b{font-size:16px}
-.ms-seg{display:inline-block;font:9px 'DM Mono',monospace;letter-spacing:.06em;border:1px solid var(--line);border-radius:4px;padding:2px 5px;white-space:nowrap}
+.ms-seg{display:inline-flex;flex-direction:column;font:9px/1.2 'DM Mono',monospace;letter-spacing:.04em;border:1px solid var(--line);border-radius:4px;padding:2px 5px;white-space:nowrap}
+.ms-px{font:12px 'DM Mono',monospace;text-align:right}
 .ms-sc{font:500 13px 'DM Mono',monospace;text-align:right}
 .ms-days{display:flex;align-items:center;gap:6px;justify-content:flex-end;width:100%}
 .ms-bar{flex:1;height:5px;background:var(--track);border-radius:3px}.ms-bar i{display:block;height:5px;background:var(--blue-bar);border-radius:3px}
@@ -278,7 +279,7 @@ JS = """
 (function(){
 var body=document.getElementById('ms-body');if(!body)return;
 var btns=document.querySelectorAll('#ms-head button');
-var dflt={rank:1,tk:1,seg:1,score:-1,days:-1};
+var dflt={rank:1,tk:1,seg:1,price:-1,score:-1,days:-1};
 var cur={k:'rank',d:1};
 function val(r,k){return (k==='tk'||k==='seg')?r.dataset[k]:+r.dataset[k];}
 function apply(){
@@ -304,6 +305,14 @@ def _esc(s):
     return _html.escape(str(s), quote=True)
 
 
+def _usd(x):
+    return f"${x:,.0f}" if x >= 1000 else f"${x:,.2f}"
+
+
+def _seg_html(seg):
+    return "".join(f"<span>{_esc(part)}</span>" for part in seg.split(" · "))
+
+
 def _rows_html(top, streaks):
     out = []
     for i, r in enumerate(top, 1):
@@ -315,9 +324,10 @@ def _rows_html(top, streaks):
                      f'<span class="ms-d">{d}d</span>')
         out.append(
             f'<div class="ms-row" data-rank="{i}" data-tk="{_esc(r["ticker"])}" data-seg="{_esc(r["segment"])}" '
-            f'data-score="{r["score"]:.1f}" data-days="{d}">'
+            f'data-score="{r["score"]:.1f}" data-price="{r["price"]:.2f}" data-days="{d}">'
             f'<div class="ms-tk"><span class="n">{i}</span><b>{_esc(r["ticker"])}</b></div>'
-            f'<div><span class="ms-seg">{_esc(r["segment"])}</span></div>'
+            f'<div><span class="ms-seg">{_seg_html(r["segment"])}</span></div>'
+            f'<div class="ms-px">{_usd(r["price"])}</div>'
             f'<div class="ms-sc">{r["score"]:.0f}</div>'
             f'<div class="ms-days">{right}</div></div>')
     return "".join(out)
@@ -329,6 +339,7 @@ def page_html(top, streaks, asof, updated, demo=False, cap_b=40):
     head = (f'<div class="ms-head" id="ms-head">'
             f'<div style="display:flex;gap:10px">{b("rank", "RANK")}{b("tk", "A–Z")}</div>'
             f'<div>{b("seg", "SEGMENT")}</div>'
+            f'<div style="text-align:right">{b("price", "PRICE")}</div>'
             f'<div style="text-align:right">{b("score", "SCORE")}</div>'
             f'<div style="text-align:right">{b("days", "DAYS")}</div></div>')
     pill = "Demo data (synthetic)" if demo else "Speculative"
@@ -338,11 +349,11 @@ def page_html(top, streaks, asof, updated, demo=False, cap_b=40):
         body = f'<div id="ms-body">{_rows_html(top, streaks)}</div>'
     return f"""<section class="page"><div class="wrap">
 <div><div class="top"><div class="eyebrow">PAGE 2 OF 2</div><div class="pill">{pill}</div></div>
-<h1>Moonshot watchlist</h1><div class="sub">{_esc(updated)} · prices as of {_esc(asof)} close · $25 per name</div></div>
+<h1>Moonshot watchlist</h1><div class="sub">Prices as of {_esc(asof)} close · $25 per name</div></div>
 <div class="row"><div class="lbl">TOP {TOP_N} · TAP A HEADER TO SORT</div><div class="mono muted sm">3–4 names</div></div>
 <div>{head}{body}</div>
 <div class="foot"><div><b style="color:var(--text)">Rank</b> = score plus days on the list (bar full at {STREAK_FULL} days). Tap a header again to reverse.</div>
-<div>Score: theme fit, bottleneck position, growth, cash runway, dilution, size, momentum. Names above ${cap_b:g}B market cap are left off. Speculative: money you can lose entirely. Separate from the page-1 buys. Not investment advice.</div></div>
+<div>Score: your ratings, growth, cash runway, dilution, size, momentum. Over ${cap_b:g}B market cap is left off. Speculative, money you can lose entirely. Not investment advice.</div></div>
 </div></section><script>{JS}</script>"""
 
 
@@ -382,6 +393,7 @@ def build(asof, today, wl_path, hist_path, cache_path, demo=False, seed=7, index
             json.dump(new_hist, f, indent=1)
     summary = dict(asof=str(asof_ts.date()), missing=missing, over_cap=big,
                    top=[dict(ticker=r["ticker"], segment=r["segment"], score=round(r["score"], 1),
+                             price=round(r["price"], 2),
                              streak=streaks.get(r["ticker"], {}).get("streak"), parts=r["parts"])
                         for r in top])
     return page_html(top, streaks, asof_txt, updated, demo, max_mcap / 1e9), summary
