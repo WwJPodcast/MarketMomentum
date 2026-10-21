@@ -5,7 +5,8 @@ Score (0-100):
   growth 20        revenue growth YoY (15) + growth speeding up (5)
   survival 15      free cash flow positive, or months of cash left at the current burn
   dilution 10      share count change over the last year (shrinking = full points)
-  size 10          mid-size is best, mega caps and tiny caps score lower
+  size 10          mid-size is best, tiny caps score lower; names above the watchlist's
+                   max_mcap_b (default $40B) are left off the list entirely
   momentum 20      6-month gain vs the rest of the list (12), above 200-day (4), near 52-week high (4)
 Rank = score + up to 10 bonus points for the current streak of days on the list (full at 30 days).
 Missing data scores 0 for that item. Fundamentals refresh weekly (cached); prices daily.
@@ -27,8 +28,10 @@ NEW_DAYS = 3
 
 # ---------- inputs ----------
 def load_watchlist(path):
+    """(stocks, max_mcap) - names above max_mcap dollars are left off the list."""
     with open(path, encoding="utf-8") as f:
-        return json.load(f)["stocks"]
+        d = json.load(f)
+    return d["stocks"], float(d.get("max_mcap_b", 40)) * 1e9
 
 
 def load_prices(tickers):
@@ -190,10 +193,10 @@ def score_one(w, pm, f, mom_pct):
         p["size"] = 2.0
     elif mc < 5e9:
         p["size"] = 10.0
-    elif mc < 2e10:
-        p["size"] = 6.0
+    elif mc < 1.5e10:
+        p["size"] = 7.0
     else:
-        p["size"] = 3.0
+        p["size"] = 4.0
     mo = 0.0
     if pm:
         if mom_pct is not None:
@@ -203,16 +206,20 @@ def score_one(w, pm, f, mom_pct):
     return p, float(sum(p.values()))
 
 
-def rank_list(wl, px, fund, asof, prev_streaks):
+def rank_list(wl, px, fund, asof, prev_streaks, max_mcap=None):
     pms = {w["ticker"]: price_metrics(px[w["ticker"]], asof) for w in wl if w["ticker"] in px.columns}
     rets = pd.Series({t: m["ret6"] for t, m in pms.items() if m and m["ret6"] is not None})
     pct = rets.rank(pct=True).to_dict() if len(rets) else {}
-    rows, missing = [], []
+    rows, missing, big = [], [], []
     for w in wl:
         t = w["ticker"]
         pm = pms.get(t)
         if pm is None:
             missing.append(t)
+            continue
+        mc = fund.get(t, {}).get("mcap")
+        if max_mcap and mc is not None and mc > max_mcap:
+            big.append(t)
             continue
         parts, score = score_one(w, pm, fund.get(t, {}), pct.get(t))
         bonus = STREAK_BONUS * min(prev_streaks.get(t, 0), STREAK_FULL) / STREAK_FULL
@@ -220,7 +227,7 @@ def rank_list(wl, px, fund, asof, prev_streaks):
                          rank_key=score + bonus, price=pm["price"], ret6=pm["ret6"],
                          parts={k: round(v, 1) for k, v in parts.items()}))
     rows.sort(key=lambda r: -r["rank_key"])
-    return rows[:TOP_N], missing
+    return rows[:TOP_N], missing, big
 
 
 # ---------- history ----------
@@ -236,9 +243,10 @@ def load_history(path):
 def update_history(hist, top, asof):
     """Streak = consecutive report dates on the list. Re-running the same date changes nothing."""
     asof = str(asof)
-    if hist.get("asof") == asof:
-        return hist
     prev = hist.get("tickers", {})
+    if hist.get("asof") == asof:   # same report date again: keep streaks, follow the current list
+        return dict(asof=asof, tickers={r["ticker"]: prev.get(r["ticker"], dict(streak=1, first=asof))
+                                        for r in top})
     cur = {}
     for r in top:
         e = prev.get(r["ticker"])
@@ -315,7 +323,7 @@ def _rows_html(top, streaks):
     return "".join(out)
 
 
-def page_html(top, streaks, asof, updated, demo=False):
+def page_html(top, streaks, asof, updated, demo=False, cap_b=40):
     def b(k, label):
         return f'<button type="button" data-k="{k}" data-l="{label}">{label}</button>'
     head = (f'<div class="ms-head" id="ms-head">'
@@ -334,7 +342,7 @@ def page_html(top, streaks, asof, updated, demo=False):
 <div class="row"><div class="lbl">TOP {TOP_N} · TAP A HEADER TO SORT</div><div class="mono muted sm">3–4 names</div></div>
 <div>{head}{body}</div>
 <div class="foot"><div><b style="color:var(--text)">Rank</b> = score plus days on the list (bar full at {STREAK_FULL} days). Tap a header again to reverse.</div>
-<div>Score: theme fit, bottleneck position, growth, cash runway, dilution, size, momentum. Speculative: money you can lose entirely. Separate from the page-1 buys. Information only, not investment advice.</div></div>
+<div>Score: theme fit, bottleneck position, growth, cash runway, dilution, size, momentum. Names above ${cap_b:g}B market cap are left off. Speculative: money you can lose entirely. Separate from the page-1 buys. Not investment advice.</div></div>
 </div></section><script>{JS}</script>"""
 
 
@@ -347,7 +355,7 @@ def fallback_html(updated):
 
 def build(asof, today, wl_path, hist_path, cache_path, demo=False, seed=7, index=None):
     """Returns (page2_html, summary_dict). Writes history and cache unless demo."""
-    wl = load_watchlist(wl_path)
+    wl, max_mcap = load_watchlist(wl_path)
     asof_ts = pd.Timestamp(asof)
     updated = "Updated " + today.strftime("%a, %b %-d, %Y")
     asof_txt = asof_ts.strftime("%a, %b %-d")
@@ -363,7 +371,7 @@ def build(asof, today, wl_path, hist_path, cache_path, demo=False, seed=7, index
         fund = get_fundamentals(tickers, cache_path, today)
         hist = load_history(hist_path)
     prev_streaks = {t: e["streak"] for t, e in hist.get("tickers", {}).items()}
-    top, missing = rank_list(wl, px, fund, asof_ts, prev_streaks)
+    top, missing, big = rank_list(wl, px, fund, asof_ts, prev_streaks, max_mcap)
     if demo:
         streaks = {r["ticker"]: dict(streak=int(rng.integers(1, 31))) for r in top}
         new_hist = hist
@@ -372,8 +380,8 @@ def build(asof, today, wl_path, hist_path, cache_path, demo=False, seed=7, index
         streaks = new_hist["tickers"]
         with open(hist_path, "w", encoding="utf-8") as f:
             json.dump(new_hist, f, indent=1)
-    summary = dict(asof=str(asof_ts.date()), missing=missing,
+    summary = dict(asof=str(asof_ts.date()), missing=missing, over_cap=big,
                    top=[dict(ticker=r["ticker"], segment=r["segment"], score=round(r["score"], 1),
                              streak=streaks.get(r["ticker"], {}).get("streak"), parts=r["parts"])
                         for r in top])
-    return page_html(top, streaks, asof_txt, updated, demo), summary
+    return page_html(top, streaks, asof_txt, updated, demo, max_mcap / 1e9), summary
