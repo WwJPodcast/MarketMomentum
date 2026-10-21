@@ -189,6 +189,7 @@
         "ticker": "AXTI",
         "segment": "AI \u00b7 OPTICAL",
         "score": 73.4,
+        "price": 57.09,
         "streak": 1,
         "parts": {
           "theme": 12.0,
@@ -204,6 +205,7 @@
         "ticker": "RDW",
         "segment": "SPACE \u00b7 COMPONENTS",
         "score": 70.1,
+        "price": 8.3,
         "streak": 1,
         "parts": {
           "theme": 12.0,
@@ -219,6 +221,7 @@
         "ticker": "STRL",
         "segment": "AI \u00b7 POWER",
         "score": 69.5,
+        "price": 412.25,
         "streak": 1,
         "parts": {
           "theme": 6.0,
@@ -234,6 +237,7 @@
         "ticker": "RKLB",
         "segment": "SPACE \u00b7 LAUNCH",
         "score": 68.3,
+        "price": 50.9,
         "streak": 1,
         "parts": {
           "theme": 15.0,
@@ -249,6 +253,7 @@
         "ticker": "ONTO",
         "segment": "SEMIS \u00b7 EQUIP",
         "score": 67.4,
+        "price": 219.62,
         "streak": 1,
         "parts": {
           "theme": 9.0,
@@ -264,6 +269,7 @@
         "ticker": "CRDO",
         "segment": "AI \u00b7 NETWORKING",
         "score": 66.6,
+        "price": 171.51,
         "streak": 1,
         "parts": {
           "theme": 12.0,
@@ -279,6 +285,7 @@
         "ticker": "KRMN",
         "segment": "SPACE \u00b7 COMPONENTS",
         "score": 66.1,
+        "price": 35.03,
         "streak": 1,
         "parts": {
           "theme": 12.0,
@@ -294,6 +301,7 @@
         "ticker": "AEHR",
         "segment": "SEMIS \u00b7 EQUIP",
         "score": 65.2,
+        "price": 61.99,
         "streak": 1,
         "parts": {
           "theme": 9.0,
@@ -309,6 +317,7 @@
         "ticker": "FN",
         "segment": "AI \u00b7 OPTICAL",
         "score": 64.6,
+        "price": 355.48,
         "streak": 1,
         "parts": {
           "theme": 12.0,
@@ -324,6 +333,7 @@
         "ticker": "NVT",
         "segment": "AI \u00b7 POWER",
         "score": 63.9,
+        "price": 139.78,
         "streak": 1,
         "parts": {
           "theme": 9.0,
@@ -339,6 +349,7 @@
         "ticker": "GSAT",
         "segment": "SPACE \u00b7 SATELLITES",
         "score": 63.6,
+        "price": 83.4,
         "streak": 1,
         "parts": {
           "theme": 9.0,
@@ -354,6 +365,7 @@
         "ticker": "IRDM",
         "segment": "SPACE \u00b7 SATELLITES",
         "score": 62.7,
+        "price": 43.94,
         "streak": 1,
         "parts": {
           "theme": 9.0,
@@ -369,6 +381,7 @@
         "ticker": "FLY",
         "segment": "SPACE \u00b7 LAUNCH",
         "score": 62.4,
+        "price": 16.31,
         "streak": 1,
         "parts": {
           "theme": 12.0,
@@ -384,6 +397,7 @@
         "ticker": "KTOS",
         "segment": "SPACE \u00b7 COMPONENTS",
         "score": 61.1,
+        "price": 38.96,
         "streak": 1,
         "parts": {
           "theme": 12.0,
@@ -399,6 +413,7 @@
         "ticker": "MOG-A",
         "segment": "SPACE \u00b7 COMPONENTS",
         "score": 60.0,
+        "price": 364.43,
         "streak": 1,
         "parts": {
           "theme": 9.0,
