@@ -274,7 +274,7 @@ def gain(value, is_leader, size):
     return f'<span class="mono {cls}" style="font-size:{size}px">{pct(value)}</span>'
 
 
-def render(res, gate, demo=False, prev=frozenset()):
+def render(res, gate, demo=False, prev=frozenset(), page2="", css2=""):
     pool, buys, last = res["pool"], res["buys"], res["asof"]
     new = (set(pool["ticker"]) - set(prev)) if prev else set()
     watch = not gate["on"]
@@ -295,11 +295,11 @@ def render(res, gate, demo=False, prev=frozenset()):
                  f'{gain(r.ret12, r.in12, 11)}{gain(r.ret6, r.in6, 11)}'
                  f'<div class="c">{icon(r.both)}</div><div class="c">{icon(r.above200)}</div>'
                  f'<div class="c">{icon(r.near_high)}</div></div>')
-    pill = "Demo data (synthetic)" if demo else "Live data"
+    pill = "Demo data · swipe up ↑" if demo else "Page 1 of 2 · swipe up ↑"
     return Template(PAGE).substitute(
         pill=pill, report=dt.date.today().strftime("%a, %b %-d, %Y"),
         asof=last.strftime("%a, %b %-d"), head=head, body=body, rows=rows,
-        gate=gate_html(gate), total=total)
+        gate=gate_html(gate), total=total, page2=page2, css2=css2)
 
 
 PAGE = """<!doctype html>
@@ -338,8 +338,9 @@ h1{margin:4px 0;font-size:28px;line-height:1.1}.sub{font-size:13px;color:var(--m
 .trow{padding:5px 0;border-top:1px solid var(--line)}.trow:last-child{border-bottom:1px solid var(--line)}
 .tk{display:flex;align-items:center;gap:5px}.tk b{font-size:15px}.trow.dim .tk b{color:var(--muted)}.c{display:flex;justify-content:center}
 .legend{font-size:11px;line-height:1.45;color:var(--muted);margin-top:6px}
-.foot{border-top:1px solid var(--line);padding-top:10px;font-size:11px;line-height:1.45;color:var(--muted);display:flex;flex-direction:column;gap:5px}
-</style></head><body><div class="wrap">
+.foot{margin-top:auto;border-top:1px solid var(--line);padding-top:10px;font-size:11px;line-height:1.45;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+$css2
+</style></head><body><section class="page"><div class="wrap">
 <div><div class="top"><div class="eyebrow">S&amp;P 500 MOMENTUM</div><div class="pill">$pill</div></div>
 <h1>Momentum leaders</h1><div class="sub">$report · prices as of $asof close</div></div>
 $gate
@@ -349,7 +350,7 @@ $gate
 <div class="legend">Green gain = in that top 3. SKIP = fails 2 or more checks.</div></div>
 <div class="foot"><div><b style="color:var(--text)">Plan:</b> hold 1 year · stop-loss 35% below purchase · $$100–$$200 per payday</div>
 <div>Buys pause while the S&amp;P 500 is below its 200-day average. Near high = within 15% of 52-week high. Vs 50-day is information only. NEW = not in the last payday report. Price gain only. Not investment advice.</div></div>
-</div></body></html>"""
+</div></section>$page2</body></html>"""
 
 
 def main():
@@ -360,6 +361,9 @@ def main():
     ap.add_argument("--asof", help="YYYY-MM-DD; default = last completed close")
     ap.add_argument("--seed", type=int, default=7, help="demo mode random seed")
     ap.add_argument("--paydays", default="paydays.json", help="saved payday lists (for NEW)")
+    ap.add_argument("--moon-watchlist", default="watchlist.json")
+    ap.add_argument("--moon-history", default="moonshot_history.json")
+    ap.add_argument("--moon-cache", default="fundamentals_cache.json")
     ap.add_argument("--demo-gate", choices=["on", "off"], default="on",
                     help="demo mode: simulate the S&P 500 above/below its 200-day average")
     a = ap.parse_args()
@@ -377,8 +381,24 @@ def main():
     mpx = demo_market(px.index, a.demo_gate == "on") if a.demo else load_market()
     gate = market_gate(mpx, res["asof"], prev_gate)
 
+    # page 2 (moonshot watchlist) must never break page 1
+    moon = None
+    try:
+        import moonshots
+        page2, moon = moonshots.build(res["asof"], today, a.moon_watchlist, a.moon_history,
+                                      a.moon_cache, demo=a.demo, seed=a.seed, index=px.index)
+        css2 = moonshots.CSS
+        if moon["missing"]:
+            print("watchlist tickers with no price data:", ", ".join(moon["missing"]))
+    except Exception as e:
+        print(f"page 2 failed, publishing page 1 only: {e!r}")
+        try:
+            import moonshots
+            page2, css2 = moonshots.fallback_html("Updated " + today.strftime("%a, %b %-d, %Y")), moonshots.CSS
+        except Exception:
+            page2, css2 = "", ""
     with open(a.out, "w", encoding="utf-8") as f:
-        f.write(render(res, gate, demo=a.demo, prev=prev))
+        f.write(render(res, gate, demo=a.demo, prev=prev, page2=page2, css2=css2))
     if not a.demo:
         save_paydays(a.paydays, paydays, today, set(res["pool"]["ticker"]))
     buys = [res["pool"].loc[i, "ticker"] for i in res["buys"]]
@@ -389,7 +409,7 @@ def main():
                        pool=res["pool"].to_dict("records"),
                        top12=res["top12"].to_dict("records"),
                        top6=res["top6"].to_dict("records"),
-                       buys=buys),
+                       buys=buys, moonshots=moon),
                   f, indent=2, default=str)
     print(f"as of {res['asof'].date()} | buys: {buys or 'none'}")
     cols = ["ticker", "ret12", "ret6", "both", "above200", "near_high", "score", "skip"]

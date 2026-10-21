@@ -1,0 +1,59 @@
+{
+  "_note": "Starter watchlist for page 2. theme and bottleneck are 1-5 ratings; the starter values are Claude's first-pass opinions and are meant to be edited. Add or remove names freely (US-listed tickers, Yahoo format).",
+  "stocks": [
+    {"ticker": "LITE", "name": "Lumentum", "segment": "AI · OPTICAL", "theme": 5, "bottleneck": 5},
+    {"ticker": "COHR", "name": "Coherent", "segment": "AI · OPTICAL", "theme": 5, "bottleneck": 4},
+    {"ticker": "AAOI", "name": "Applied Optoelectronics", "segment": "AI · OPTICAL", "theme": 4, "bottleneck": 3},
+    {"ticker": "AXTI", "name": "AXT Inc", "segment": "AI · OPTICAL", "theme": 4, "bottleneck": 5},
+    {"ticker": "LWLG", "name": "Lightwave Logic", "segment": "AI · OPTICAL", "theme": 3, "bottleneck": 2},
+    {"ticker": "POET", "name": "POET Technologies", "segment": "AI · OPTICAL", "theme": 3, "bottleneck": 2},
+    {"ticker": "FN", "name": "Fabrinet", "segment": "AI · OPTICAL", "theme": 4, "bottleneck": 3},
+    {"ticker": "GLW", "name": "Corning", "segment": "AI · OPTICAL", "theme": 4, "bottleneck": 4},
+    {"ticker": "CIEN", "name": "Ciena", "segment": "AI · OPTICAL", "theme": 4, "bottleneck": 3},
+
+    {"ticker": "CRDO", "name": "Credo Technology", "segment": "AI · NETWORKING", "theme": 4, "bottleneck": 3},
+    {"ticker": "ALAB", "name": "Astera Labs", "segment": "AI · NETWORKING", "theme": 4, "bottleneck": 3},
+    {"ticker": "MRVL", "name": "Marvell Technology", "segment": "AI · NETWORKING", "theme": 4, "bottleneck": 3},
+    {"ticker": "AVGO", "name": "Broadcom", "segment": "AI · NETWORKING", "theme": 3, "bottleneck": 3},
+    {"ticker": "ANET", "name": "Arista Networks", "segment": "AI · NETWORKING", "theme": 3, "bottleneck": 2},
+    {"ticker": "APH", "name": "Amphenol", "segment": "AI · NETWORKING", "theme": 4, "bottleneck": 3},
+
+    {"ticker": "VRT", "name": "Vertiv", "segment": "AI · POWER", "theme": 4, "bottleneck": 4},
+    {"ticker": "POWL", "name": "Powell Industries", "segment": "AI · POWER", "theme": 3, "bottleneck": 3},
+    {"ticker": "NVT", "name": "nVent Electric", "segment": "AI · POWER", "theme": 3, "bottleneck": 3},
+    {"ticker": "FIX", "name": "Comfort Systems USA", "segment": "AI · POWER", "theme": 3, "bottleneck": 2},
+    {"ticker": "STRL", "name": "Sterling Infrastructure", "segment": "AI · POWER", "theme": 2, "bottleneck": 2},
+    {"ticker": "BE", "name": "Bloom Energy", "segment": "AI · POWER", "theme": 3, "bottleneck": 3},
+    {"ticker": "NVTS", "name": "Navitas Semiconductor", "segment": "AI · POWER", "theme": 3, "bottleneck": 2},
+
+    {"ticker": "OKLO", "name": "Oklo", "segment": "NUCLEAR", "theme": 3, "bottleneck": 2},
+    {"ticker": "SMR", "name": "NuScale Power", "segment": "NUCLEAR", "theme": 3, "bottleneck": 2},
+    {"ticker": "NNE", "name": "Nano Nuclear Energy", "segment": "NUCLEAR", "theme": 2, "bottleneck": 1},
+
+    {"ticker": "MU", "name": "Micron", "segment": "AI · MEMORY", "theme": 3, "bottleneck": 4},
+    {"ticker": "SNDK", "name": "Sandisk", "segment": "AI · MEMORY", "theme": 3, "bottleneck": 4},
+    {"ticker": "STX", "name": "Seagate", "segment": "AI · MEMORY", "theme": 3, "bottleneck": 3},
+    {"ticker": "AEHR", "name": "Aehr Test Systems", "segment": "SEMIS · EQUIP", "theme": 3, "bottleneck": 3},
+    {"ticker": "ONTO", "name": "Onto Innovation", "segment": "SEMIS · EQUIP", "theme": 3, "bottleneck": 3},
+
+    {"ticker": "RKLB", "name": "Rocket Lab", "segment": "SPACE · LAUNCH", "theme": 5, "bottleneck": 5},
+    {"ticker": "FLY", "name": "Firefly Aerospace", "segment": "SPACE · LAUNCH", "theme": 4, "bottleneck": 4},
+    {"ticker": "LUNR", "name": "Intuitive Machines", "segment": "SPACE · LAUNCH", "theme": 3, "bottleneck": 3},
+
+    {"ticker": "ASTS", "name": "AST SpaceMobile", "segment": "SPACE · SATELLITES", "theme": 4, "bottleneck": 3},
+    {"ticker": "PL", "name": "Planet Labs", "segment": "SPACE · SATELLITES", "theme": 3, "bottleneck": 2},
+    {"ticker": "BKSY", "name": "BlackSky", "segment": "SPACE · SATELLITES", "theme": 2, "bottleneck": 2},
+    {"ticker": "SPIR", "name": "Spire Global", "segment": "SPACE · SATELLITES", "theme": 2, "bottleneck": 2},
+    {"ticker": "SATL", "name": "Satellogic", "segment": "SPACE · SATELLITES", "theme": 2, "bottleneck": 1},
+    {"ticker": "IRDM", "name": "Iridium", "segment": "SPACE · SATELLITES", "theme": 3, "bottleneck": 3},
+    {"ticker": "GSAT", "name": "Globalstar", "segment": "SPACE · SATELLITES", "theme": 3, "bottleneck": 3},
+    {"ticker": "VSAT", "name": "Viasat", "segment": "SPACE · SATELLITES", "theme": 3, "bottleneck": 2},
+    {"ticker": "YSS", "name": "York Space Systems", "segment": "SPACE · SATELLITES", "theme": 3, "bottleneck": 3},
+
+    {"ticker": "RDW", "name": "Redwire", "segment": "SPACE · COMPONENTS", "theme": 4, "bottleneck": 3},
+    {"ticker": "KRMN", "name": "Karman Holdings", "segment": "SPACE · COMPONENTS", "theme": 4, "bottleneck": 3},
+    {"ticker": "MOG-A", "name": "Moog", "segment": "SPACE · COMPONENTS", "theme": 3, "bottleneck": 3},
+    {"ticker": "MRCY", "name": "Mercury Systems", "segment": "SPACE · COMPONENTS", "theme": 3, "bottleneck": 2},
+    {"ticker": "KTOS", "name": "Kratos Defense", "segment": "SPACE · COMPONENTS", "theme": 4, "bottleneck": 3}
+  ]
+}

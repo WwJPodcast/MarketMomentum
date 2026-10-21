@@ -10,7 +10,8 @@ S&P 500 momentum report, refreshed every weekday (price gain only, dividends exc
 - Market gate: buys are ON while the S&P 500 closes above its 200-day average; it flips only after a 1% close beyond it. While OFF the card shows the names as WATCH and the payday buy is $0.
 - Each card also shows how far the price is above its 50-day average (information only).
 - NEW = not in the previous payday report (`paydays.json`, saved on payday runs).
-- Output: `index.html` (the card, follows light/dark), `data.json`, `paydays.json`.
+- Page 2 (swipe up): a speculative moonshot watchlist from `watchlist.json` (edit the 1-5 `theme` and `bottleneck` ratings and the ticker list). `moonshots.py` scores each name (ratings, revenue growth, cash runway, dilution, size, momentum), ranks the top 15 by score plus days on the list, and keeps the streaks in `moonshot_history.json`. Fundamentals refresh weekly (`fundamentals_cache.json`); prices daily. Tap a column header to sort. If page 2 fails, page 1 still publishes.
+- Output: `index.html` (the card, follows light/dark), `data.json`, `paydays.json`, `moonshot_history.json`, `fundamentals_cache.json`.
 
 Pages: Settings > Pages > Deploy from a branch > `main` / root.
 Page: `https://wwjpodcast.github.io/MarketMomentum/`
