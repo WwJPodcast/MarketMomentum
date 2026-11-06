@@ -1,11 +1,11 @@
 {
-  "_note": "Star Potential (page 2). Segments and stocks are a researched view (Koch's Star Principle: the leader of a niche growing 10%+ a year). Ranking and membership change only at the monthly check or quarterly re-rank, or on a named trigger: pending acquisition, guidance cut, leader clearly losing share, 35% drawdown. Top 3 segments carry 3 stocks, bottom 3 carry 2.",
-  "reviewed": "2026-10-21",
+  "_note": "Star Potential (page 2). Segments and stocks are a researched view (Koch's Star Principle: the leader of a niche growing 10%+ a year). Ranking and membership change only at the monthly check or quarterly re-rank, or on a named trigger: pending acquisition, guidance cut, leader clearly losing share, 35% drawdown. Re-screened 2026-11-06 with Chad: four segments for now; slots 5 and 6 are open until the next screen. Top segments carry 2-3 stocks; no share-price cap.",
+  "reviewed": "2026-11-06",
   "next_full_review": "2027-01",
   "segments": [
     {
       "rank": 1, "name": "OBESITY DRUGS", "growth": "+21–33%/yr",
-      "note": "Lilly holds 60%+ of US GLP-1 sales and guides ~25% growth for 2026; Novo guides to a decline and is losing share.",
+      "note": "Lilly Q3 revenue $24.4B (+39%); 2026 guide raised to $91–92B. Novo guided 2026 sales down up to 13% and is losing share. Viking has no revenue yet.",
       "stocks": [
         {"ticker": "LLY", "role": "LEADER"},
         {"ticker": "VKTX", "role": "CHALLENGER"},
@@ -13,45 +13,28 @@
       ]
     },
     {
-      "rank": 2, "name": "AI POWER + COOLING", "growth": "+22%/yr",
-      "note": "Liquid cooling forecast to grow 21.6%/yr to 2030. Vertiv backlog about $15B, up 109%; trades near 40x forward earnings.",
+      "rank": 2, "name": "AI POWER + COOLING", "growth": "+27%/yr",
+      "note": "Wood Mackenzie: US data-center electrical equipment about $20B to about $65B by 2030 (27%/yr is our arithmetic on a 2025 base). GE Vernova Q3 orders +96%, gas power backlog 122 GW. Vertiv leads cooling.",
       "stocks": [
-        {"ticker": "VRT", "role": "LEADER"},
-        {"ticker": "NVT", "role": "CHALLENGER"},
+        {"ticker": "GEV", "role": "LEADER"},
+        {"ticker": "VRT", "role": "LEADER (COOLING)"},
         {"ticker": "ETN", "role": "DIVERSIFIED"}
       ]
     },
     {
-      "rank": 3, "name": "DIRECT-TO-PHONE SAT", "growth": "+49%/yr",
-      "note": "Revenue forecast about $12B by 2030. Starlink leads deployment, AST SpaceMobile leads operator reach; Amazon Leo is buying Globalstar (excluded: price tied to the deal).",
+      "rank": 3, "name": "CUSTOM AI CHIPS", "growth": "+45% units 2026",
+      "note": "TrendForce: custom AI chip shipments +44.6% in 2026 vs +16.1% for GPUs (units, not revenue). Broadcom and Marvell hold about 95% of custom-chip design.",
       "stocks": [
-        {"ticker": "SPCX", "role": "LEADER"},
-        {"ticker": "ASTS", "role": "CONTENDER"},
-        {"ticker": "IRDM", "role": "UNVERIFIED"}
+        {"ticker": "AVGO", "role": "LEADER"},
+        {"ticker": "MRVL", "role": "CHALLENGER"}
       ]
     },
     {
-      "rank": 4, "name": "AI OPTICAL LINKS", "growth": "+40%/yr AI part",
-      "note": "800G shipments expected to more than double in 2026. Leader unclear: Innolight (not US-listed) ranked first in 2023; Coherent about 22% share in 2025.",
+      "rank": 4, "name": "WAREHOUSE + HUMANOID ROBOTS", "growth": "+21% now, humanoid early",
+      "note": "Symbotic trailing revenue $2.65B (+21%); market share unverified. Tesla Optimus entered early production at Fremont, outside deliveries targeted around end-2027, no revenue yet. ABI forecasts humanoids at $6.5B by 2030.",
       "stocks": [
-        {"ticker": "COHR", "role": "CONTENDER"},
-        {"ticker": "LITE", "role": "CONTENDER"}
-      ]
-    },
-    {
-      "rank": 5, "name": "MILITARY DRONES", "growth": "+14%/yr",
-      "note": "Pentagon $1.1B program for 340,000 drones by 2027, but 25 companies compete; no clear leader.",
-      "stocks": [
-        {"ticker": "AVAV", "role": "CONTENDER"},
-        {"ticker": "KTOS", "role": "CONTENDER"}
-      ]
-    },
-    {
-      "rank": 6, "name": "GRID STORAGE", "growth": "+22%/yr (old)",
-      "note": "Growth data is stale (2021 and 2023 forecasts); market shares unverified. Storage is a small part of Tesla.",
-      "stocks": [
-        {"ticker": "FLNC", "role": "CONTENDER"},
-        {"ticker": "TSLA", "role": "UNVERIFIED"}
+        {"ticker": "SYM", "role": "WAREHOUSE"},
+        {"ticker": "TSLA", "role": "HUMANOID BET"}
       ]
     }
   ]
