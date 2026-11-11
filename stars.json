@@ -1,40 +1,102 @@
 {
-  "_note": "Star Potential (page 2). Segments and stocks are a researched view (Koch's Star Principle: the leader of a niche growing 10%+ a year). Ranking and membership change only at the monthly check or quarterly re-rank, or on a named trigger: pending acquisition, guidance cut, leader clearly losing share, 35% drawdown. Re-screened 2026-11-06 with Chad: four segments for now; slots 5 and 6 are open until the next screen. Top segments carry 2-3 stocks; no share-price cap.",
-  "reviewed": "2026-11-06",
+  "_note": "Star Potential (page 2). Segments and stocks are a researched view (Koch's Star Principle: the leader of a niche growing 10%+ a year). Ranking and membership change only at the monthly check or quarterly re-rank, or on a named trigger: pending acquisition, guidance cut, leader clearly losing share, 35% drawdown. Re-screened 2026-11-06 with Chad: Space re-added as segment 5 on 2026-11-11 (Chad: the summer dip is market variation, not a change in trajectory); slot 6 is still open. Top segments carry 2-3 stocks; no share-price cap.",
+  "reviewed": "2026-11-11",
   "next_full_review": "2027-01",
   "segments": [
     {
-      "rank": 1, "name": "OBESITY DRUGS", "growth": "+21–33%/yr",
+      "rank": 1,
+      "name": "OBESITY DRUGS",
+      "growth": "+21–33%/yr",
       "note": "Lilly Q3 revenue $24.4B (+39%); 2026 guide raised to $91–92B. Novo guided 2026 sales down up to 13% and is losing share. Viking has no revenue yet.",
       "stocks": [
-        {"ticker": "LLY", "role": "LEADER"},
-        {"ticker": "VKTX", "role": "CHALLENGER"},
-        {"ticker": "NVO", "role": "LOSING SHARE"}
+        {
+          "ticker": "LLY",
+          "role": "LEADER"
+        },
+        {
+          "ticker": "VKTX",
+          "role": "CHALLENGER"
+        },
+        {
+          "ticker": "NVO",
+          "role": "LOSING SHARE"
+        }
       ]
     },
     {
-      "rank": 2, "name": "AI POWER + COOLING", "growth": "+27%/yr",
+      "rank": 2,
+      "name": "AI POWER + COOLING",
+      "growth": "+27%/yr",
       "note": "Wood Mackenzie: US data-center electrical equipment about $20B to about $65B by 2030 (27%/yr is our arithmetic on a 2025 base). GE Vernova Q3 orders +96%, gas power backlog 122 GW. Vertiv leads cooling.",
       "stocks": [
-        {"ticker": "GEV", "role": "LEADER"},
-        {"ticker": "VRT", "role": "LEADER (COOLING)"},
-        {"ticker": "ETN", "role": "DIVERSIFIED"}
+        {
+          "ticker": "GEV",
+          "role": "LEADER"
+        },
+        {
+          "ticker": "VRT",
+          "role": "LEADER (COOLING)"
+        },
+        {
+          "ticker": "ETN",
+          "role": "DIVERSIFIED"
+        }
       ]
     },
     {
-      "rank": 3, "name": "CUSTOM AI CHIPS", "growth": "+45% units 2026",
+      "rank": 3,
+      "name": "CUSTOM AI CHIPS",
+      "growth": "+45% units 2026",
       "note": "TrendForce: custom AI chip shipments +44.6% in 2026 vs +16.1% for GPUs (units, not revenue). Broadcom and Marvell hold about 95% of custom-chip design.",
       "stocks": [
-        {"ticker": "AVGO", "role": "LEADER"},
-        {"ticker": "MRVL", "role": "CHALLENGER"}
+        {
+          "ticker": "AVGO",
+          "role": "LEADER"
+        },
+        {
+          "ticker": "MRVL",
+          "role": "CHALLENGER"
+        }
       ]
     },
     {
-      "rank": 4, "name": "WAREHOUSE + HUMANOID ROBOTS", "growth": "+21% now, humanoid early",
+      "rank": 4,
+      "name": "WAREHOUSE + HUMANOID ROBOTS",
+      "growth": "+21% now, humanoid early",
       "note": "Symbotic trailing revenue $2.65B (+21%); market share unverified. Tesla Optimus entered early production at Fremont, outside deliveries targeted around end-2027, no revenue yet. ABI forecasts humanoids at $6.5B by 2030.",
       "stocks": [
-        {"ticker": "SYM", "role": "WAREHOUSE"},
-        {"ticker": "TSLA", "role": "HUMANOID BET"}
+        {
+          "ticker": "SYM",
+          "role": "WAREHOUSE"
+        },
+        {
+          "ticker": "TSLA",
+          "role": "HUMANOID BET"
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "name": "SPACE: PHONE SATELLITES + SUPPLIERS",
+      "growth": "+49%/yr phone-satellite revenue",
+      "note": "Omdia: direct-to-phone satellite revenue to about $12B by 2030. SpaceX leads (over $50 a share, shown for reference); AST SpaceMobile Q3 revenue $42.3M (+187%), $3.2B cash, 45 satellites now targeted mid-2027. Supplier names added for the under-$50 test; prices checked after the first run.",
+      "stocks": [
+        {
+          "ticker": "SPCX",
+          "role": "LEADER"
+        },
+        {
+          "ticker": "ASTS",
+          "role": "CONTENDER"
+        },
+        {
+          "ticker": "RDW",
+          "role": "SUPPLIER"
+        },
+        {
+          "ticker": "FLY",
+          "role": "LAUNCH"
+        }
       ]
     }
   ]
